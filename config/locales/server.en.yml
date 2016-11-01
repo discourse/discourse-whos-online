@@ -1,0 +1,4 @@
+en:
+  site_settings:
+    whos_online_enabled: "Enable Who's Online Plugin"
+    whos_online_active_timeago: "The maximum number of minutes since last interaction that a user is considered 'online'"

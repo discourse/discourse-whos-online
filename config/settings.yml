@@ -1,0 +1,7 @@
+plugins:
+  whos_online_enabled:
+    default: true
+    client: true
+  whos_online_active_timeago:
+    default: 5
+    client: true

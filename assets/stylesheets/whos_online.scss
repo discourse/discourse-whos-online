@@ -1,0 +1,4 @@
+#whos-online {
+	color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+	padding-left: 10px;
+}
