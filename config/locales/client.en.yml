@@ -1,5 +1,5 @@
 en:
   js:
     whos_online:
-      title: "Online ({{count}}):"
+      title: "Online"
       tooltip: "Users seen in the last 5 minutes"

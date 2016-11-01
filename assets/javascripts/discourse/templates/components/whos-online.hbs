@@ -1,6 +1,6 @@
 <div id="whos-online">
     <span title="{{i18n "whos_online.tooltip"}}">
-    	{{i18n "whos_online.title" count=online.users.length}}
+    	{{i18n "whos_online.title"}} ({{online.users.length}}):
     </span>
 	{{#each online.users as |user|}}
 		<a data-user-card="{{user.username}}">
