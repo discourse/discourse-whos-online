@@ -36,10 +36,10 @@ export default Ember.Service.extend({
                     // Check if still online
                     var usernameIndex = newUsernames.indexOf(user.username);
                     if(usernameIndex == -1){ // User is now offline
-                        console.log('Removing '+user.username+' from online')
+                        // console.log('Removing '+user.username+' from online')
                         toRemove.push(index) // Remove them from the array
                     }else{
-                        console.log('Keeping '+user.username+' online')
+                        // console.log('Keeping '+user.username+' online')
                         newUsernames.splice(usernameIndex, 1) // It's not a new user, remove it from the list
                     }
                 });
@@ -51,15 +51,15 @@ export default Ember.Service.extend({
                 newUsernames.forEach(function(username){
 
                     if(loadingUsers.indexOf(username) == -1){
-                        console.log('Loading '+username+' for online')
+                        // console.log('Loading '+username+' for online')
                         loadingUsers.pushObject(username)
                         Discourse.User.findByUsername(username).then(function(user){
-                            console.log('Adding '+user.username+' to online')
+                            // console.log('Adding '+user.username+' to online')
                             currentUsers.pushObject(user)
                             loadingUsers.removeObject(username)
                         });
                     }else{
-                        console.log('User '+username+' is already loading')
+                        // console.log('User '+username+' is already loading')
                     }
                 });
 
