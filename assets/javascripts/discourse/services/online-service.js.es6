@@ -10,6 +10,8 @@ export default Ember.Service.extend({
 
     users:[],
 
+    loadingUsers:[],
+
     init() {
         this.get('users').pushObject(Discourse.User.current())
 
@@ -24,6 +26,8 @@ export default Ember.Service.extend({
 
             this.messageBus.subscribe('/whos-online', function(data){
                 var currentUsers = onlineService.get('users')
+                var loadingUsers = onlineService.get('loadingUsers')
+
                 var newUsernames = data['users']
 
                 var toRemove = []
@@ -38,7 +42,6 @@ export default Ember.Service.extend({
                         console.log('Keeping '+user.username+' online')
                         newUsernames.splice(usernameIndex, 1) // It's not a new user, remove it from the list
                     }
-
                 });
 
                 toRemove.reverse().forEach(function(index){
@@ -46,11 +49,18 @@ export default Ember.Service.extend({
                 })
 
                 newUsernames.forEach(function(username){
-                    console.log('Loading '+username+' for online')
-                    Discourse.User.findByUsername(username).then(function(user){
-                        console.log('Adding '+user.username+' to online')
-                        onlineService.get('users').pushObject(user)
-                    });
+
+                    if(loadingUsers.indexOf(username) == -1){
+                        console.log('Loading '+username+' for online')
+                        loadingUsers.pushObject(username)
+                        Discourse.User.findByUsername(username).then(function(user){
+                            console.log('Adding '+user.username+' to online')
+                            currentUsers.pushObject(user)
+                            loadingUsers.removeObject(username)
+                        });
+                    }else{
+                        console.log('User '+username+' is already loading')
+                    }
                 });
 
             });
