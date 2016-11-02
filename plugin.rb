@@ -38,16 +38,9 @@ after_initialize do
         every 1.minutes
 
         def execute(args)
-          users = User.where("last_seen_at > ?", SiteSetting.whos_online_active_timeago.minutes.ago)
-
-          usernames = []
-
-          for user in users do
-            usernames.push(user.username)
-          end
-
-          MessageBus.publish('/whos-online', {'users':usernames})
+          usernames = User.where("last_seen_at > ?", SiteSetting.whos_online_active_timeago.minutes.ago).pluck(:username)
           
+          MessageBus.publish('/whos-online', {'users':usernames})
         end
       end
   end
