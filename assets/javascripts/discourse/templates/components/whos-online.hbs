@@ -4,7 +4,7 @@
     </span>
 	{{#each online.users as |user|}}
 		<a data-user-card="{{user.username}}">
-			{{avatar user avatarTemplatePath="avatar_template" usernamePath="username" imageSize="small"}}
+			{{avatar user avatarTemplatePath="avatar_template" title=user.username imageSize="small"}}
 		</a>
 	{{/each}}
 	
