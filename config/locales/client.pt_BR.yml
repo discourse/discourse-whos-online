@@ -1,0 +1,6 @@
+pt_BR:
+  js:
+    whos_online:
+      title: "Online ({{count}}):"
+      tooltip: "Usuários online nos últimos 5 minutos"
+      no_users: "Nenhum usuário online no momento"
