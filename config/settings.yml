@@ -8,3 +8,6 @@ plugins:
   whos_online_collapse_threshold:
     default: 10
     client: true
+  whos_online_maximum_display:
+    default: 50
+    client: true

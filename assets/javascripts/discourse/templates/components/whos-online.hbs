@@ -2,7 +2,7 @@
     <span title="{{i18n "whos_online.tooltip"}}">
     	{{i18n "whos_online.title"}} ({{online.users.length}}):
     </span>
-	{{#each online.users as |user|}}
+	{{#each users as |user|}}
 		{{whos-online-avatar user=user}}
 	{{/each}}
 </div>
