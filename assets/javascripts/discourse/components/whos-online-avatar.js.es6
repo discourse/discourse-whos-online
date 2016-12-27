@@ -11,7 +11,17 @@ export default Ember.Component.extend({
     	// Otherwise the CSS3 animation won't work :(
     	// I hope there's a better way to do this!
     	Ember.run.later(this, function() {
-    		this.$().removeClass('is-hidden');
+    		
+    		var theContainer = this;
+
+    		this.$("img").one("load", function() {
+    			if(typeof theContainer.$() !== "undefined"){
+					theContainer.$().removeClass('is-hidden');
+				}
+			}).each(function() {
+			  	if(this.complete) $(this).load();
+			});
+    	
 	   	}, 10);
     }
 });
