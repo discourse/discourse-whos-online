@@ -1,6 +1,10 @@
 <div id="whos-online" class="{{if isLong 'collapsed'}}">
     <span title="{{i18n "whos_online.tooltip"}}">
-    	{{i18n "whos_online.title"}} ({{online.users.length}}):
+    	{{#if isUsers }}
+    		{{i18n "whos_online.title"}} ({{online.users.length}}):
+    	{{else}}
+    		{{i18n "whos_online.no_users"}}
+    	{{/if}}
     </span>
 	{{#each users as |user|}}
 		{{whos-online-avatar user=user}}

@@ -8,5 +8,8 @@ export default Ember.Component.extend({
 	}.property('online.users.@each'),
     isLong: function() {
     	return this.get('online').users.length >= this.siteSettings.whos_online_collapse_threshold
+	}.property('online.users.length'),
+	isUsers: function() {
+    	return this.get('online').users.length >= this.siteSettings.whos_online_minimum_display
 	}.property('online.users.length')
 });

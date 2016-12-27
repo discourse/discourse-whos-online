@@ -18,7 +18,7 @@ export default Ember.Service.extend({
     	// Go get the initial set of users
     	ajax('/whosonline/get.json', {method: 'GET'}).then(function(result){
     		// Load the users
-            console.log('Fetched initial list of users')
+            // console.log('Fetched initial list of users')
             this.set('users', result['users']);
 
             // Store the service instance so we can access it from the messageBus callback

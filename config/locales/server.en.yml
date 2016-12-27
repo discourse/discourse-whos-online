@@ -4,4 +4,5 @@ en:
     whos_online_active_timeago: "The maximum number of minutes since last interaction that a user is considered 'online'"
     whos_online_collapse_threshold: "The number of users required before the avatars overlap"
     whos_online_maximum_display: "The maximum number of users to display"
+    whos_online_minimum_display: "The minimum number of users to display"
 

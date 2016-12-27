@@ -11,3 +11,6 @@ plugins:
   whos_online_maximum_display:
     default: 50
     client: true
+  whos_online_minimum_display:
+    default: 1
+    client: true

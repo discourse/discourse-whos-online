@@ -3,3 +3,4 @@ en:
     whos_online:
       title: "Online"
       tooltip: "Users seen in the last 5 minutes"
+      no_users: "No users currently online"
