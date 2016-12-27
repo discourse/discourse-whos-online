@@ -1,7 +1,7 @@
 fr:
   site_settings:
     whos_online_enabled: "Activer le plugin Who's Online"
-    whos_online_active_timeago: "Le nombre maximale de minutes depuis la dernière interraction pour qu'un utilisateur soit consideré comme 'en ligne'"
+    whos_online_active_timeago: "Le nombre maximal de minutes depuis la dernière interraction pour qu'un utilisateur soit consideré comme 'en ligne'"
     whos_online_collapse_threshold: "Le nombre d'utilisateur requis avant que les avatars ne se chevauchent"
     whos_online_maximum_display: "Le nombre maximal d'utilisateur à afficher"
     whos_online_minimum_display: "Le nombre minimal d'utilisateur à afficher"
