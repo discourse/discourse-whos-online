@@ -1,0 +1,7 @@
+es:
+  site_settings:
+    whos_online_enabled: "Activar el plugin Who's Online"
+    whos_online_active_timeago: "El máximo número de minutos desde la última interacción para que un usuario se considere 'conectado'"
+    whos_online_collapse_threshold: "El número de usuarios requeridos a partir de los cuales los avatares se solapan"
+    whos_online_maximum_display: "Máximo número de usuarios para mostrar"
+    whos_online_minimum_display: "Mínimo número de usuarios para mostrar"
