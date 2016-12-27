@@ -1,11 +1,8 @@
-<div id="whos-online">
+<div id="whos-online" class="{{if isLong 'collapsed'}}">
     <span title="{{i18n "whos_online.tooltip"}}">
     	{{i18n "whos_online.title"}} ({{online.users.length}}):
     </span>
 	{{#each online.users as |user|}}
-		<a data-user-card="{{user.username}}">
-			{{avatar user avatarTemplatePath="avatar_template" title=user.username imageSize="small"}}
-		</a>
+		{{whos-online-avatar user=user}}
 	{{/each}}
-	
 </div>

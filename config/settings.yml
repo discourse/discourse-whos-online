@@ -5,3 +5,6 @@ plugins:
   whos_online_active_timeago:
     default: 5
     client: true
+  whos_online_collapse_threshold:
+    default: 10
+    client: true
