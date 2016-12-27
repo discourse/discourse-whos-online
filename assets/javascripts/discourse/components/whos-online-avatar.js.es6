@@ -13,14 +13,15 @@ export default Ember.Component.extend({
     	Ember.run.later(this, function() {
     		
     		var theContainer = this;
-
-    		this.$("img").one("load", function() {
-    			if(typeof theContainer.$() !== "undefined"){
-					theContainer.$().removeClass('is-hidden');
-				}
-			}).each(function() {
-			  	if(this.complete) $(this).load();
-			});
+    		if(typeof theContainer.$() !== "undefined"){
+	    		this.$("img").one("load", function() {
+	    			if(typeof theContainer.$() !== "undefined"){
+						theContainer.$().removeClass('is-hidden');
+					}
+				}).each(function() {
+				  	if(this.complete) $(this).load();
+				});
+			}
     	
 	   	}, 10);
     }
