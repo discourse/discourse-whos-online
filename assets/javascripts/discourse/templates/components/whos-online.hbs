@@ -1,7 +1,7 @@
 <div id="whos-online" class="{{if isLong 'collapsed'}}">
     <span title="{{i18n "whos_online.tooltip"}}">
     	{{#if isUsers }}
-    		{{i18n "whos_online.title"}} ({{online.users.length}}):
+    		{{i18n "whos_online.title" count=online.users.length}}
     	{{else}}
     		{{i18n "whos_online.no_users"}}
     	{{/if}}

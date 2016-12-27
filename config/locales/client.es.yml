@@ -1,6 +1,6 @@
 es:
   js:
     whos_online:
-      title: "En línea"
+      title: "En línea ({{count}}):"
       tooltip: "Usuarios conectados en los últimos 5 minutos"
       no_users: "No hay usuarios conectados actualmente"
