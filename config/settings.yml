@@ -14,3 +14,10 @@ plugins:
   whos_online_minimum_display:
     default: 1
     client: true
+  whos_online_display_public:
+    default: true
+    client: true
+  whos_online_display_min_trust_level:
+    default: 0
+    enum: 'TrustLevelSetting'
+    client: true
