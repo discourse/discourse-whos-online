@@ -2,6 +2,9 @@ import Ember from 'ember';
 var inject = Ember.inject;
 
 export default Ember.Component.extend({  
+    showWhosOnline: function() {
+      return this.siteSettings.whos_online_enabled;
+    }.property(),
     online: inject.service('online-service'),
     users: function() {
     	return this.get('online').users.slice(0, this.siteSettings.whos_online_maximum_display)

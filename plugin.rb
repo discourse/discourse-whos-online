@@ -3,6 +3,8 @@
 # version: 0.0.1
 # authors: David Taylor
 
+enabled_site_setting :whos_online_enabled
+
 PLUGIN_NAME ||= 'discourse_whos_online'.freeze
 
 register_asset 'stylesheets/whos_online.scss'
@@ -38,6 +40,8 @@ after_initialize do
         every 1.minutes
 
         def execute(args)
+          return if !SiteSetting.whos_online_enabled?
+
           usernames = User.where("last_seen_at > ?", SiteSetting.whos_online_active_timeago.minutes.ago).pluck(:username)
           
           MessageBus.publish('/whos-online', {'users':usernames})
