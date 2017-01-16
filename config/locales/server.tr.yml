@@ -1,0 +1,10 @@
+tr:
+  site_settings:
+    whos_online_enabled: "Who's Online (Kimler Çevrimiçi) eklentisini aktif et"
+    whos_online_active_timeago: "Bir kullanıcının 'çevrimiçi' olarak kabul edildiği son etkileşimden sonraki maksimum dakika sayısı"
+    whos_online_collapse_threshold: "Avatarlar üst üste gelmeden önceki gereken sayı"
+    whos_online_maximum_display: "Görüntülenecek azami kullanıcı sayısı"
+    whos_online_minimum_display: "Görüntülenecek minimum kullanıcı sayısı"
+    whos_online_display_public: "Çevrimiçileri gösterin. (Oturum açma gerekmiyor)"
+    whos_online_display_min_trust_level: "Gösterilmek için gereken güven seviyesi"
+
