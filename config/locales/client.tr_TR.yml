@@ -1,4 +1,4 @@
-tr:
+tr_TR:
   js:
     whos_online:
       title: "Çevrimiçi ({{count}}):"

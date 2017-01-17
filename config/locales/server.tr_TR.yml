@@ -1,4 +1,4 @@
-tr:
+tr_TR:
   site_settings:
     whos_online_enabled: "Who's Online (Kimler Çevrimiçi) eklentisini aktif et"
     whos_online_active_timeago: "Bir kullanıcının 'çevrimiçi' olarak kabul edildiği son etkileşimden sonraki maksimum dakika sayısı"
