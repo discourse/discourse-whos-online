@@ -1,0 +1,9 @@
+fi:
+  site_settings:
+    whos_online_enabled: "Ota käyttöön Who's Online -lisäosa"
+    whos_online_active_timeago: "Kuinka monen minuutin ajan viime toimensa jälkeen käyttäjää pidetään paikalla olevana"
+    whos_online_collapse_threshold: "Kuinka monta käyttäjää tarvitaan, jotta avatarit aletaan näyttää lomittain"
+    whos_online_maximum_display: "Näytettävien käyttäjien enimmäismäärä"
+    whos_online_minimum_display: "Näytettävien käyttäjien vähimmäismäärä"
+    whos_online_display_public: "Näytä paikalla olevat kaikille (sisäänkirjautumista ei vaadita)"
+    whos_online_display_min_trust_level: "Luottamustaso joka vaaditaan, jotta näkee paikalla olevat"
