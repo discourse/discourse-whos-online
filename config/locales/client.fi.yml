@@ -1,0 +1,6 @@
+fi:
+  js:
+    whos_online:
+      title: "Paikalla ({{count}}):"
+      tooltip: "Viimeisten 5 minuutin aikana paikalla"
+      no_users: "Kukaan ei ole paikalla juuri nyt"
