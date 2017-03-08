@@ -5,3 +5,5 @@ it:
     whos_online_collapse_threshold: "Il numero di utenti richiesto prima che gli avatar vengano sovrapposti"
     whos_online_maximum_display: "Numero massimo di utenti da mostrare"
     whos_online_minimum_display: "Numero minimo di utenti da mostrare"
+    whos_online_display_public: "Mostra chi è online al pubblico (nessun accesso richiesto)"
+    whos_online_display_min_trust_level: "Livello di esperienza minimo richiesto per vedere chi è online"
