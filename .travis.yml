@@ -1,20 +1,21 @@
-env:
-  matrix: # Test against all of these branches
-    - "DISCOURSE_BRANCH=tests-passed"
-    - "DISCOURSE_BRANCH=beta"
-    - "DISCOURSE_BRANCH=stable"
-
-matrix:
-  fast_finish: true
-
+# We want to use the KVM-based system, so require sudo
+sudo: required
 services:
   - docker
 
-sudo: required
+# Test against all of these discourse branches:
+env:
+  matrix: 
+    - "DISCOURSE_BRANCH=tests-passed"
+    - "DISCOURSE_BRANCH=beta"
+    - "DISCOURSE_BRANCH=stable"
+    
+# You can allow specific branches to fail by adding entries to here:
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: "DISCOURSE_BRANCH=stable"
 
-dist: trusty
-
-# before_install and install takes about 3.5 mins
 before_install: 
   - plugin_name=${PWD##*/} && echo $plugin_name # Get the plugin's name
   - mkdir -p _travis_plugin_files/$plugin_name # Make a temp directory for it
@@ -33,7 +34,6 @@ install:
 
 # Script can take about 20 mins
 script: 
-  - "./bin/docker/bundle exec rspec" # Run Rspec tests
+  - "./bin/docker/bundle exec rspec" # Run Discourse Rspec tests to check plugin hasn't broken core
   - "./bin/docker/bundle exec rake plugin:spec" # Run plugin Rspecs
   - "./bin/docker/bundle exec rake qunit:test['200000']" # Run QUnit tests - see https://meta.discourse.org/t/plugin-qunit-tests-are-not-running-as-part-of-rake-qunit-test/59577?u=david_taylor
-  
