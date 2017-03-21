@@ -1,0 +1,39 @@
+env:
+  matrix: # Test against all of these branches
+    - "DISCOURSE_BRANCH=tests-passed"
+    - "DISCOURSE_BRANCH=beta"
+    - "DISCOURSE_BRANCH=stable"
+
+matrix:
+  fast_finish: true
+
+services:
+  - docker
+
+sudo: required
+
+dist: trusty
+
+# before_install and install takes about 3.5 mins
+before_install: 
+  - plugin_name=${PWD##*/} && echo $plugin_name # Get the plugin's name
+  - mkdir -p _travis_plugin_files/$plugin_name # Make a temp directory for it
+  - mv !(_travis_plugin_files) _travis_plugin_files/$plugin_name # Move all the files into the directory
+  - git clone -b $DISCOURSE_BRANCH https://github.com/discourse/discourse.git discourse # Clone discourse
+  - mv _travis_plugin_files/* discourse/plugins/ # Move the temp folder contents into the discourse plugin folder
+  - ls discourse/plugins # List all the installed plugins
+  - cd discourse
+  - git describe --dirty --match "v[0-9]*" # Show the current discourse version
+
+install:
+  - ./bin/docker/boot_dev # Load the Discourse development docker image, and set up
+  - travis_retry ./bin/docker/bundle install --retry=3 --jobs=3 # Retry because sometimes the network connection drops on travis
+  - ./bin/docker/psql "-c 'ALTER USER discourse WITH SUPERUSER;'" # See https://meta.discourse.org/t/rspec-tests-wont-pass-on-discourse-dev-docker-image/59515/4?u=david_taylor
+  - RAILS_ENV=test ./bin/docker/rake db:drop db:create db:migrate # Migrate the database
+
+# Script can take about 20 mins
+script: 
+  - "./bin/docker/bundle exec rspec" # Run Rspec tests
+  - "./bin/docker/bundle exec rake plugin:spec" # Run plugin Rspecs
+  - "./bin/docker/bundle exec rake qunit:test['200000']" # Run QUnit tests - see https://meta.discourse.org/t/plugin-qunit-tests-are-not-running-as-part-of-rake-qunit-test/59577?u=david_taylor
+  
