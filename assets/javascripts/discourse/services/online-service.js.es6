@@ -11,36 +11,42 @@ export default Ember.Service.extend({
     users:[],
 
     init() {
-        this.get('users').pushObject(Discourse.User.current())
+        var startingData = Discourse.Site.currentProp('users_online')
+        
+        this.set('users',startingData['users']);
+        
+        // Store the service instance so we can access it from the messageBus callback
+        const onlineService = this;
 
-    	// Go get the initial set of users
-    	ajax('/whosonline/get.json', {method: 'GET'}).then(function(result){
-            this.set('users', result['users']);
+        this.messageBus.subscribe('/whos-online', function(data){
 
-            // Store the service instance so we can access it from the messageBus callback
-            const onlineService = this;
+            var currentUsers = onlineService.get('users')
 
-            this.messageBus.subscribe('/whos-online', function(data){
-                console.log(data);
+            switch (data['message_type']) {
+                case 'going_online':
+                    var user = data['user'];
+                    currentUsers.pushObject(user);
 
-                var currentUsers = onlineService.get('users')
+                    break;
+                case 'going_offline':
+                    var matchById = function(element){
+                        return element.id == this;
+                    }
 
-                data['going_online'].forEach(function(user, index, array){
-                    currentUsers.pushObject(user);   
-                });
+                    data['users'].forEach(function(user_id){
+                        var found = currentUsers.find(matchById, user_id);
+                        if(found !== undefined){ 
+                            currentUsers.removeObject(found);
+                        }
+                    });
 
-                data['going_offline'].forEach(function(user, index, array){
-                    var found = currentUsers.find(function(element){
-                        return element.id == this.id
-                    }, user);
-                    currentUsers.removeObject(found);
-                });
-            });
+                    break;
+                default:
+                    console.error('Unknown message type sent to /whos-online');
+                    break;
+            }
+        }, startingData['messagebus_id']);
 
-    	}.bind(this), function(msg){
-            // An error occured
-  	    	console.log(msg)
-    	});
     }
 
 });
