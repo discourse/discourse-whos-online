@@ -51,8 +51,6 @@ after_initialize do
   # When user seen, update the user:#:online redis key
   # and add to 'users_online' set if necessary
   DiscourseEvent.on(:user_seen) do |user|
-    puts("Event running, adding to redis")
-
     redis_key = "user:#{user.id}:online"
     expire_seconds = SiteSetting.whos_online_active_timeago.minutes
 
