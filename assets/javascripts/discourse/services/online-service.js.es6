@@ -10,65 +10,43 @@ export default Ember.Service.extend({
 
     users:[],
 
-    loadingUsers:[],
-
     init() {
-        this.get('users').pushObject(Discourse.User.current())
+        var startingData = Discourse.Site.currentProp('users_online')
+        
+        this.set('users',startingData['users']);
+        
+        // Store the service instance so we can access it from the messageBus callback
+        const onlineService = this;
 
-    	// Go get the initial set of users
-    	ajax('/whosonline/get.json', {method: 'GET'}).then(function(result){
-    		// Load the users
-            // console.log('Fetched initial list of users')
-            this.set('users', result['users']);
+        this.messageBus.subscribe('/whos-online', function(data){
 
-            // Store the service instance so we can access it from the messageBus callback
-            const onlineService = this;
+            var currentUsers = onlineService.get('users')
 
-            this.messageBus.subscribe('/whos-online', function(data){
-                var currentUsers = onlineService.get('users')
-                var loadingUsers = onlineService.get('loadingUsers')
+            switch (data['message_type']) {
+                case 'going_online':
+                    var user = data['user'];
+                    currentUsers.pushObject(user);
 
-                var newUsernames = data['users']
-
-                var toRemove = []
-
-                currentUsers.forEach(function(user, index, array){
-                    // Check if still online
-                    var usernameIndex = newUsernames.indexOf(user.username);
-                    if(usernameIndex == -1){ // User is now offline
-                        // console.log('Removing '+user.username+' from online')
-                        toRemove.push(index) // Remove them from the array
-                    }else{
-                        // console.log('Keeping '+user.username+' online')
-                        newUsernames.splice(usernameIndex, 1) // It's not a new user, remove it from the list
+                    break;
+                case 'going_offline':
+                    var matchById = function(element){
+                        return element.id == this;
                     }
-                });
 
-                toRemove.reverse().forEach(function(index){
-                    currentUsers.removeAt(index, 1)
-                })
+                    data['users'].forEach(function(user_id){
+                        var found = currentUsers.find(matchById, user_id);
+                        if(found !== undefined){ 
+                            currentUsers.removeObject(found);
+                        }
+                    });
 
-                newUsernames.forEach(function(username){
+                    break;
+                default:
+                    console.error('Unknown message type sent to /whos-online');
+                    break;
+            }
+        }, startingData['messagebus_id']);
 
-                    if(loadingUsers.indexOf(username) == -1){
-                        // console.log('Loading '+username+' for online')
-                        loadingUsers.pushObject(username)
-                        Discourse.User.findByUsername(username).then(function(user){
-                            // console.log('Adding '+user.username+' to online')
-                            currentUsers.pushObject(user)
-                            loadingUsers.removeObject(username)
-                        });
-                    }else{
-                        // console.log('User '+username+' is already loading')
-                    }
-                });
-
-            });
-
-    	}.bind(this), function(msg){
-            // An error occured
-  	    	console.log(msg)
-    	});
     }
 
 });
