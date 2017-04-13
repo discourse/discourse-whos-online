@@ -38,7 +38,7 @@ after_initialize do
 
   add_to_serializer(:site, :users_online) do
     online_user_ids = $redis.smembers("users_online")
-    online_users = User.find(online_user_ids)
+    online_users = User.where(id:online_user_ids)
 
     serialized_online_users = []
 
