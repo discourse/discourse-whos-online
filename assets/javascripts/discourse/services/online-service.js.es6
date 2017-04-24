@@ -10,17 +10,32 @@ export default Ember.Service.extend({
 
     users:[],
 
-    init() {
-        var startingData = Discourse.Site.currentProp('users_online')
-        
-        this.set('users',startingData['users']);
-        
-        // Store the service instance so we can access it from the messageBus callback
-        const onlineService = this;
+    _lastMessageId: null,
 
-        this.messageBus.subscribe('/whos-online', function(data){
+    messageProcessor(){
+        var onlineService = this;
 
+        return function(data, global_id, message_id){
             var currentUsers = onlineService.get('users')
+
+            var last_message_id = onlineService.get('_lastMessageId')
+
+            if(message_id != last_message_id + 1){ // If not the next message
+                console.log("Reloading online users data");
+                onlineService.messageBus.unsubscribe('/whos-online',this.func); 
+
+                // Fetch up to date data
+                ajax('/whosonline/get.json', {method: 'GET'}).then(function(result){
+                    onlineService.set('users', result['users']);
+                    onlineService.set('_lastMessageId', result['messagebus_id'])
+                    onlineService.messageBus.subscribe('/whos-online', onlineService.messageProcessor(), result['messagebus_id']);
+                }, function(msg){
+                    console.log(msg) // Log the error
+                });
+                return
+            }
+
+            onlineService.set('_lastMessageId', message_id);
 
             switch (data['message_type']) {
                 case 'going_online':
@@ -45,7 +60,20 @@ export default Ember.Service.extend({
                     console.error('Unknown message type sent to /whos-online');
                     break;
             }
-        }, startingData['messagebus_id']);
+
+        }
+    },
+
+    init() {
+        var startingData = Discourse.Site.currentProp('users_online')
+        
+        this.set('users',startingData['users']);
+        this.set('_lastMessageId', startingData['messagebus_id'])
+        
+        // Store the service instance so we can access it from the messageBus callback
+        const onlineService = this;
+
+        this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
 
     }
 

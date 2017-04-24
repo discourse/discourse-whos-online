@@ -17,6 +17,32 @@ after_initialize do
     end
   end
 
+  require_dependency 'application_controller'
+
+  class DiscourseWhosOnline::WhosOnlineController < ::ApplicationController
+    def on_request
+      online_user_ids = $redis.smembers("users_online")
+      online_users = User.where(id:online_user_ids)
+
+      serialized_online_users = []
+
+      for user in online_users do
+        serialized_online_users.push(BasicUserSerializer.new(user, root: false))
+      end
+
+      render json: { users: serialized_online_users,
+      messagebus_id: MessageBus.last_id('/whos-online') }
+    end
+  end
+
+  DiscourseWhosOnline::Engine.routes.draw do
+    get '/get' => 'whos_online#on_request'
+  end
+
+  ::Discourse::Application.routes.append do
+    mount ::DiscourseWhosOnline::Engine, at: '/whosonline'
+  end
+
   if not Discourse.has_needed_version?(Discourse::VERSION::STRING, '1.8.0.beta9')
     # Monkeypatch User class to add DiscourseEvent trigger
     require_dependency 'user'
