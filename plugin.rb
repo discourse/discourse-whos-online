@@ -1,7 +1,8 @@
-# name: Discourse Whos Online
+# name: discourse-whos-online
 # about: Who's online widget
-# version: 0.0.1
+# version: 1.0
 # authors: David Taylor
+# url: https://github.com/davidtaylorhq/discourse-whos-online
 
 enabled_site_setting :whos_online_enabled
 
