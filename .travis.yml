@@ -30,7 +30,7 @@ install:
   - ./bin/docker/boot_dev # Load the Discourse development docker image, and set up
   - travis_retry ./bin/docker/bundle install --retry=3 --jobs=3 # Retry because sometimes the network connection drops on travis
   - ./bin/docker/psql "-c 'ALTER USER discourse WITH SUPERUSER;'" # See https://meta.discourse.org/t/rspec-tests-wont-pass-on-discourse-dev-docker-image/59515/4?u=david_taylor
-  - RAILS_ENV=test ./bin/docker/rake db:drop db:create db:migrate # Migrate the database
+  - RAILS_ENV=test ./bin/docker/bundle exec rake db:drop db:create db:migrate # Migrate the database
 
 # Script can take about 20 mins
 script: 
