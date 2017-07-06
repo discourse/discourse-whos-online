@@ -8,6 +8,11 @@ export default Ember.Component.extend({
         return false
       }
 
+      // If the number of users is less than the minimum, and it's set to hide, hide it
+      if(this.get('online').users.length < this.siteSettings.whos_online_minimum_display && this.siteSettings.whos_online_hide_below_minimum_display){
+        return false
+      }
+
       // If it's visible to the public, always make visible
       if(this.siteSettings.whos_online_display_public){
         return true

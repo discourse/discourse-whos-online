@@ -14,6 +14,9 @@ plugins:
   whos_online_minimum_display:
     default: 1
     client: true
+  whos_online_hide_below_minimum_display:
+    default: false
+    client: true
   whos_online_display_public:
     default: true
     client: true

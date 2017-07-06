@@ -5,6 +5,7 @@ en:
     whos_online_collapse_threshold: "The number of users required before the avatars overlap"
     whos_online_maximum_display: "The maximum number of users to display"
     whos_online_minimum_display: "The minimum number of users to display"
+    whos_online_hide_below_minimum_display: "Completely hide the widget if number of users is below minimum_display"
     whos_online_display_public: "Show whos-online to the public (no sign in required)"
     whos_online_display_min_trust_level: "The minimum trust level required to see whos-online"
 

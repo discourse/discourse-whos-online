@@ -7,8 +7,10 @@
         		{{i18n "whos_online.no_users"}}
         	{{/if}}
         </span>
-    	{{#each users as |user|}}
-    		{{whos-online-avatar user=user}}
-    	{{/each}}
+        {{#if isUsers }}
+        	{{#each users as |user|}}
+        		{{whos-online-avatar user=user}}
+        	{{/each}}
+        {{/if}}
     </div>
 {{/if}}
