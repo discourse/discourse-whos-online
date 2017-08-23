@@ -23,7 +23,7 @@ after_initialize do
   class DiscourseWhosOnline::WhosOnlineController < ::ApplicationController
     def on_request
       online_user_ids = $redis.smembers("users_online")
-      online_users = User.where(id:online_user_ids)
+      online_users = User.where(id: online_user_ids)
 
       serialized_online_users = []
 
@@ -32,7 +32,7 @@ after_initialize do
       end
 
       render json: { users: serialized_online_users,
-      messagebus_id: MessageBus.last_id('/whos-online') }
+                     messagebus_id: MessageBus.last_id('/whos-online') }
     end
   end
 
@@ -50,7 +50,7 @@ after_initialize do
     class ::User
       alias_method :old_update_last_seen!, :update_last_seen!
 
-      def update_last_seen!(now=Time.zone.now)
+      def update_last_seen!(now = Time.zone.now)
         now_date = now.to_date
         # Only update last seen once every minute
         redis_key = "user:#{id}:#{now_date}"
@@ -65,7 +65,7 @@ after_initialize do
 
   add_to_serializer(:site, :users_online) do
     online_user_ids = $redis.smembers("users_online")
-    online_users = User.where(id:online_user_ids)
+    online_users = User.where(id: online_user_ids)
 
     serialized_online_users = []
 
@@ -74,7 +74,7 @@ after_initialize do
     end
 
     { users: serialized_online_users,
-      messagebus_id: MessageBus.last_id('/whos-online') }    
+      messagebus_id: MessageBus.last_id('/whos-online') }
   end
 
   # When user seen, update the user:#:online redis key
@@ -85,11 +85,11 @@ after_initialize do
 
     already_online = $redis.exists(redis_key)
 
-    $redis.set(redis_key, '1', {:ex => expire_seconds})
+    $redis.set(redis_key, '1', ex: expire_seconds)
 
     if not already_online
       # Add to the redis set of online users
-      Jobs.enqueue(:whos_online_going_online, {:user_id => user.id})
+      Jobs.enqueue(:whos_online_going_online, user_id: user.id)
     end
   end
 
@@ -108,7 +108,7 @@ after_initialize do
 
         for user_id in online_users do
           redis_key = "user:#{user_id}:online"
-          
+
           user_still_online = $redis.exists(redis_key)
 
           if not user_still_online
@@ -130,7 +130,7 @@ after_initialize do
 
     # This is run whenever a user becomes online
     class WhosOnlineGoingOnline < Jobs::Base
-        
+
       def execute(args)
         return if !SiteSetting.whos_online_enabled?
 
@@ -151,5 +151,4 @@ after_initialize do
     end
   end
 
-    
 end
