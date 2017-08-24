@@ -8,7 +8,24 @@ export default Ember.Service.extend({
 
     users:[],
 
+    appEvents: Discourse.__container__.lookup('app-events:main'),
+
     _lastMessageId: null,
+
+    isUserOnline(user_id){
+
+        var matchById = function(element){
+                            return element.id === this;
+                        };
+
+        var found = this.get('users').find(matchById, user_id);
+        if(found !== undefined){
+            return true;
+        }
+
+        return false;
+
+    },
 
     messageProcessor(){
         var onlineService = this;
@@ -30,6 +47,7 @@ export default Ember.Service.extend({
                 }, function(msg){
                     console.log(msg); // Log the error
                 });
+                onlineService.appEvents.trigger('whosonline:changed');
                 return;
             }
 
@@ -58,6 +76,7 @@ export default Ember.Service.extend({
                     console.error('Unknown message type sent to /whos-online');
                     break;
             }
+            onlineService.appEvents.trigger('whosonline:changed');
 
         };
     },
@@ -68,8 +87,9 @@ export default Ember.Service.extend({
         this.set('users',startingData['users']);
         this.set('_lastMessageId', startingData['messagebus_id']);
 
-        this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
+        this.appEvents.trigger('whosonline:changed');
 
+        this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
     }
 
 });

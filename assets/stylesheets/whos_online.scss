@@ -33,3 +33,50 @@
 	}
 
 }
+
+.topic-avatar .online-indicator.status-offline{
+    opacity: 0;
+}
+
+.topic-avatar .online-indicator {
+    display: block;
+    position: absolute;
+    top: 13px;
+    left: 1px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+    background-color: $success;
+    border: 2px solid $secondary;
+
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.topic-map .avatars div{
+    &:first-child{
+      margin-left: 0px;
+    }
+    margin-left: 5px;
+}
+
+.topic-map .avatars .online-indicator.status-offline {
+    opacity: 0;
+}
+
+.topic-map .avatars .online-indicator{
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: -5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+
+    background-color: $success;
+    border: 1px solid $secondary;
+
+    opacity: 1;
+    transition: opacity 1s;
+}
