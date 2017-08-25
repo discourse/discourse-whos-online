@@ -84,12 +84,14 @@ export default Ember.Service.extend({
     init() {
         var startingData = Discourse.Site.currentProp('users_online');
 
-        this.set('users',startingData['users']);
-        this.set('_lastMessageId', startingData['messagebus_id']);
+        if(startingData){
+            this.set('users',startingData['users']);
+            this.set('_lastMessageId', startingData['messagebus_id']);
 
-        this.appEvents.trigger('whosonline:changed');
+            this.appEvents.trigger('whosonline:changed');
 
-        this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
+            this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
+        }
     }
 
 });
