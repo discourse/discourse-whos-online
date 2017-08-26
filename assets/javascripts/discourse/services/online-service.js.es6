@@ -9,6 +9,7 @@ export default Ember.Service.extend({
     users:[],
 
     appEvents: Discourse.__container__.lookup('app-events:main'),
+    siteSettings: Discourse.__container__.lookup('site-settings:main'),
 
     _lastMessageId: null,
 
@@ -92,6 +93,28 @@ export default Ember.Service.extend({
 
             this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
         }
-    }
+    },
+
+    shouldDisplay: function() {
+      // If the plugin is disabled, return false
+      if(!this.siteSettings.whos_online_enabled){
+        return false;
+      }
+
+      // If it's visible to the public, always make visible
+      if(this.siteSettings.whos_online_display_public){
+        return true;
+      }
+
+      // Check user trust levels
+      var currentUser = Discourse.User.current();
+
+      if(currentUser===null){
+        return false;
+      }else{
+        return currentUser.trust_level >= this.siteSettings.whos_online_display_min_trust_level;
+      }
+
+    }.property(),
 
 });

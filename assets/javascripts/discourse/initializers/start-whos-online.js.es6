@@ -6,6 +6,13 @@ export default {
 
   initialize(container) {
     const onlineService = container.lookup('service:online-service');
+    const siteSettings = container.lookup('site-settings:main');
+
+    // If user not allowed, don't display
+    if(!onlineService.get('shouldDisplay')) return;
+
+    // If feature disabled, don't display
+    if(!siteSettings.whos_online_show_avatar_icon) return;
 
     withPluginApi('0.2', api => {
 
