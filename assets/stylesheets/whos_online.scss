@@ -2,6 +2,10 @@
 	color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
 	padding-left: 5px;
 
+    img{
+        box-shadow: 0 0 2px 1px lighten($success, 30%);
+    }
+
 	a{
     	transition: margin-right 1s, margin-left 1s, opacity 0.5s;
     	opacity:1;
@@ -34,66 +38,28 @@
 
 }
 
-/* General style for the indicator */
-.online-indicator {
-    display: block;
-    position: absolute;
-    
-    border-radius: 50%;
-
-    background-color: $success;
-    border: 2px solid $secondary;
-
-    opacity: 1;
-    transition: opacity, background-color 1s;
-
-    &.status-offline{
-        opacity: 0;
-    }
+/* Online Glow */
+#user-card.user-online .user-card-avatar img.avatar
+{
+  box-shadow: 0 0 8px 3px lighten($success, 30%);
 }
 
-/* This makes it red when offline */
-/* 
-.online-indicator.status-offline {
-    background-color: $danger;
-    opacity: 1;
-}
-*/
-
-/* Specific sizes, based on display location */
-
-/* Avatars shown next to each post */
-.topic-avatar .online-indicator {
-    top: 13px;
-    left: 1px;
-    width: 10px;
-    height: 10px;
+.topic-avatar.user-online img.avatar{
+  box-shadow: 0 0 5px 2px lighten($success, 30%);
 }
 
-.mobile-view .topic-avatar .online-indicator {
-    top: 3px;
-    left: 0px;
+.topic-map .avatars .user-online img.avatar{
+ box-shadow: 0 0 2px 1px lighten($success, 30%);   
 }
 
-/* Avatars shown in topic summary */
-.topic-map .avatars .online-indicator{
-    top: -2px;
-    left: -6px;
-    width: 7px;
-    height: 7px;
+.mobile-view .topic-list-item.last-poster-online img.avatar{
+  box-shadow: 0 0 4px 1px lighten($success, 30%);
 }
 
-.topic-map .avatars div{
-    &:first-child{
-      margin-left: 0px;
-    }
-    margin-left: 5px;
+.latest-topic-list .latest-topic-list-item.last-poster-online img.avatar{
+  box-shadow: 0 0 4px 1px lighten($success, 30%);
 }
 
-/* Avatars in user card */
-.user-card-avatar .online-indicator{
-    top: 10px;
-    left: 1px;
-    width: 20px;
-    height: 20px;
+#current-user.user-online img.avatar{
+ box-shadow: 0 0 4px 1px lighten($success, 30%);   
 }

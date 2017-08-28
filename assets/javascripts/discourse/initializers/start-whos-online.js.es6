@@ -1,5 +1,6 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
-import { iconNode } from 'discourse-common/lib/icon-library';
+
+var inject = Ember.inject;
 
 export default {
   name: 'start-whos-online',
@@ -16,47 +17,93 @@ export default {
 
     withPluginApi('0.2', api => {
 
-      api.createWidget('online-indicator', {
-        tagName: 'div.online-indicator',
-        buildKey: attrs => `online-status-${attrs.user_id}`,
+      api.modifyClass('component:user-card-contents',{
+        onlineService: inject.service('online-service'),
+        classNameBindings: ['isOnline:user-online'],
 
-        defaultState() {
-          this.appEvents.on("whosonline:changed", () => {
-            this.state.online = this.isOnline();
-            this.scheduleRerender();
-          });
+        isOnline: function(){
+          if(!this.get('user')){
+            return false;
+          }
+          return this.get('onlineService').isUserOnline(this.get('user').id);
+        }.property('onlineService.users.@each', 'user'),
+      });
 
-          return {online: this.isOnline()};
-        },
+      api.modifyClass('component:topic-list-item',{
+        onlineService: inject.service('online-service'),
+        classNameBindings: ['isOnline:last-poster-online'],
 
-        html() {
-          if(this.state.online){
-            return [];
-          }else{
+        isOnline: function(){
+          return this.get('onlineService').isUserOnline(this.get('topic.lastPoster.id'));
+        }.property('onlineService.users.@each', 'user'),
+      });
+
+      api.modifyClass('component:latest-topic-list-item',{
+        onlineService: inject.service('online-service'),
+        classNameBindings: ['isOnline:last-poster-online'],
+
+        isOnline: function(){
+          return this.get('onlineService').isUserOnline(this.get('topic.lastPoster.id'));
+        }.property('onlineService.users.@each', 'user'),
+      });
+
+      api.reopenWidget('post-avatar',
+        {
+          defaultState() {
+            this.appEvents.on("whosonline:changed", () => {
+              this.scheduleRerender();
+            });
+            return {};
+          },
+
+          buildClasses(){
+            if(onlineService.isUserOnline(this.attrs.user_id)){
+              return 'user-online';
+            }
             return [];
           }
-        },
-
-        buildClasses(attrs){
-          if(this.state.online){
-            return 'status-online'
-          }else{
-            return 'status-offline'
-          }
-        },
-
-        isOnline(){
-          return onlineService.isUserOnline(this.attrs.user_id, this);
         }
-      });
+      );
 
-      api.decorateWidget('post-avatar:after', helper => {
-        return helper.attach('online-indicator', {user_id: helper.attrs.user_id});
-      });
+      api.reopenWidget('topic-participant',
+        {
+          defaultState() {
+            this.appEvents.on("whosonline:changed", () => {
+              this.scheduleRerender();
+            });
+            return {};
+          },
 
-      api.decorateWidget('topic-participant:after', helper => {
-        return helper.attach('online-indicator', {user_id: helper.attrs.id});
-      });
+          buildClasses(){
+            if(onlineService.isUserOnline(this.attrs.id)){
+              return 'user-online';
+            }
+            return [];
+          }
+        }
+      );
+
+      api.reopenWidget('user-dropdown',
+        {
+          defaultState() {
+            this.appEvents.on("whosonline:changed", () => {
+              this.scheduleRerender();
+            });
+            return {};
+          },
+
+          buildClasses(){
+            if(onlineService.isUserOnline(this.currentUser.id)){
+              return 'user-online';
+            }
+            return [];
+          }
+        }
+      );
+
     });
+
+
+
   },
 };
