@@ -83,24 +83,6 @@ export default {
         }
       );
 
-      api.reopenWidget('user-dropdown',
-        {
-          defaultState() {
-            this.appEvents.on("whosonline:changed", () => {
-              this.scheduleRerender();
-            });
-            return {};
-          },
-
-          buildClasses(){
-            if(onlineService.isUserOnline(this.currentUser.id)){
-              return 'user-online';
-            }
-            return [];
-          }
-        }
-      );
-
     });
 
 
