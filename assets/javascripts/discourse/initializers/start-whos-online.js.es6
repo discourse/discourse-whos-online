@@ -34,23 +34,25 @@ export default {
         }.property('onlineService.users.@each', 'user'),
       });
 
-      api.modifyClass('component:topic-list-item',{
-        onlineService: inject.service('online-service'),
-        classNameBindings: ['isOnline:last-poster-online'],
+      if(siteSettings.whos_online_avatar_indicator_topic_lists){
+        api.modifyClass('component:topic-list-item',{
+          onlineService: inject.service('online-service'),
+          classNameBindings: ['isOnline:last-poster-online'],
 
-        isOnline: function(){
-          return this.get('onlineService').isUserOnline(this.get('topic.lastPoster.id'));
-        }.property('onlineService.users.@each', 'user'),
-      });
+          isOnline: function(){
+            return this.get('onlineService').isUserOnline(this.get('topic.lastPoster.id'));
+          }.property('onlineService.users.@each', 'user'),
+        });
 
-      api.modifyClass('component:latest-topic-list-item',{
-        onlineService: inject.service('online-service'),
-        classNameBindings: ['isOnline:last-poster-online'],
+        api.modifyClass('component:latest-topic-list-item',{
+          onlineService: inject.service('online-service'),
+          classNameBindings: ['isOnline:last-poster-online'],
 
-        isOnline: function(){
-          return this.get('onlineService').isUserOnline(this.get('topic.lastPoster.id'));
-        }.property('onlineService.users.@each', 'user'),
-      });
+          isOnline: function(){
+            return this.get('onlineService').isUserOnline(this.get('topic.lastPoster.id'));
+          }.property('onlineService.users.@each', 'user'),
+        });
+      }
 
       api.reopenWidget('post-avatar',
         {
