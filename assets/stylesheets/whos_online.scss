@@ -96,6 +96,10 @@ html.whos-online-flair {
     width: 10px;
   }
 
+  &.mobile-view .topic-avatar.user-online::before {
+    top: 3px;
+  }
+
   .topic-map .avatars div{ // Add some spacing to the avatars
     margin-left: 5px;
   }
