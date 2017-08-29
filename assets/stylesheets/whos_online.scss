@@ -56,6 +56,16 @@ html.whos-online-glow {
   .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar{
     box-shadow: 0 0 4px 1px lighten($success, 30%);
   }
+
+  body.user-page-online .primary img.avatar{
+    box-shadow: 0 0 8px 3px lighten($success, 30%);
+    margin: 8px; 
+  }
+
+  body.user-page-online .collapsed-info .primary img.avatar{
+    box-shadow: 0 0 4px 1px lighten($success, 30%);
+    margin: 5px; 
+  }
 }
 
 .whos-online-flair-prototype{
@@ -112,6 +122,23 @@ html.whos-online-flair {
     position: relative;
   }
   .latest-topic-list .latest-topic-list-item.last-poster-online .topic-poster::before{
+    @extend .whos-online-flair-prototype;
+    top: -1px;
+    left: -1px;
+    height: 10px;
+    width: 10px;
+  }
+
+  body.user-page-online .primary::before{
+    @extend .whos-online-flair-prototype;
+    top: 5px;
+    left: 5px;
+    height: 20px;
+    width: 20px;
+    transition: all .1s linear;
+  }
+
+  body.user-page-online .collapsed-info .primary::before{
     @extend .whos-online-flair-prototype;
     top: -1px;
     left: -1px;

@@ -34,6 +34,34 @@ export default {
         }.property('onlineService.users.@each', 'user'),
       });
 
+      // This is a bit hacky, since the user page doesn't currently
+      // use components
+      api.modifyClass('route:user', {
+        onlineService: inject.service('online-service'),
+
+        afterModel(){
+          this._super();
+          this.updateBodyClass();
+        },
+
+        updateBodyClass: function(){
+          const user_id = this.modelFor('user').id;
+          const isOnline = this.get('onlineService').isUserOnline(user_id);
+
+          if(isOnline){
+            Ember.$('body').addClass("user-page-online");
+          }else{
+            Ember.$('body').removeClass("user-page-online");
+          }
+        }.observes('onlineService.users.@each'),
+
+        deactivate(){
+          this._super();
+          Ember.$('body').removeClass("user-page-online");
+        }
+
+      });
+
       if(siteSettings.whos_online_avatar_indicator_topic_lists){
         api.modifyClass('component:topic-list-item',{
           onlineService: inject.service('online-service'),
