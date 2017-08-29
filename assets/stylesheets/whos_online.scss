@@ -33,3 +33,87 @@
 	}
 
 }
+
+
+html.whos-online-glow {
+  #user-card.user-online .user-card-avatar img.avatar
+  {
+    box-shadow: 0 0 8px 3px lighten($success, 30%);
+  }
+
+  .topic-avatar.user-online img.avatar{
+    box-shadow: 0 0 4px 1px lighten($success, 30%);
+  }
+
+  .topic-map .avatars .user-online img.avatar{
+   box-shadow: 0 0 2px 1px lighten($success, 30%);   
+  }
+
+  .mobile-view .topic-list-item.last-poster-online img.avatar{
+    box-shadow: 0 0 4px 1px lighten($success, 30%);
+  }
+
+  .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar{
+    box-shadow: 0 0 4px 1px lighten($success, 30%);
+  }
+}
+
+.whos-online-flair-prototype{
+  display: block;
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: $success;
+  border: 2px solid $secondary;
+}
+
+html.whos-online-flair {
+  #user-card.user-online .user-card-avatar::before {
+    @extend .whos-online-flair-prototype;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    left: 5px;
+  }
+
+  .topic-avatar.user-online::before {
+    @extend .whos-online-flair-prototype;
+    top: 13px;
+    left: 1px;
+    height: 10px;
+    width: 10px;
+  }
+
+  .topic-map .avatars div{ // Add some spacing to the avatars
+    margin-left: 5px;
+  }
+  .topic-map .avatars .user-online::before{
+    @extend .whos-online-flair-prototype;
+    top: -1px;
+    left: -1px;
+    height: 7px;
+    width: 7px;
+  }
+
+  &.mobile-view .topic-list-item.last-poster-online div.pull-left::before{
+    @extend .whos-online-flair-prototype;
+    top: 8px;
+    left: 1px;
+    height: 10px;
+    width: 10px;
+  }
+
+  .latest-topic-list .latest-topic-list-item.last-poster-online .topic-poster{
+    position: relative;
+  }
+  .latest-topic-list .latest-topic-list-item.last-poster-online .topic-poster::before{
+    @extend .whos-online-flair-prototype;
+    top: -1px;
+    left: -1px;
+    height: 10px;
+    width: 10px;
+  }
+
+}

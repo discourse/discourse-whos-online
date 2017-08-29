@@ -8,7 +8,25 @@ export default Ember.Service.extend({
 
     users:[],
 
+    appEvents: Discourse.__container__.lookup('app-events:main'),
+    siteSettings: Discourse.__container__.lookup('site-settings:main'),
+
     _lastMessageId: null,
+
+    isUserOnline(user_id){
+
+        var matchById = function(element){
+                            return element.id === this;
+                        };
+
+        var found = this.get('users').find(matchById, user_id);
+        if(found !== undefined){
+            return true;
+        }
+
+        return false;
+
+    },
 
     messageProcessor(){
         var onlineService = this;
@@ -30,6 +48,7 @@ export default Ember.Service.extend({
                 }, function(msg){
                     console.log(msg); // Log the error
                 });
+                onlineService.appEvents.trigger('whosonline:changed');
                 return;
             }
 
@@ -58,6 +77,7 @@ export default Ember.Service.extend({
                     console.error('Unknown message type sent to /whos-online');
                     break;
             }
+            onlineService.appEvents.trigger('whosonline:changed');
 
         };
     },
@@ -65,11 +85,36 @@ export default Ember.Service.extend({
     init() {
         var startingData = Discourse.Site.currentProp('users_online');
 
-        this.set('users',startingData['users']);
-        this.set('_lastMessageId', startingData['messagebus_id']);
+        if(startingData){
+            this.set('users',startingData['users']);
+            this.set('_lastMessageId', startingData['messagebus_id']);
 
-        this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
+            this.appEvents.trigger('whosonline:changed');
 
-    }
+            this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
+        }
+    },
+
+    shouldDisplay: function() {
+      // If the plugin is disabled, return false
+      if(!this.siteSettings.whos_online_enabled){
+        return false;
+      }
+
+      // If it's visible to the public, always make visible
+      if(this.siteSettings.whos_online_display_public){
+        return true;
+      }
+
+      // Check user trust levels
+      var currentUser = Discourse.User.current();
+
+      if(currentUser===null){
+        return false;
+      }else{
+        return currentUser.trust_level >= this.siteSettings.whos_online_display_min_trust_level;
+      }
+
+    }.property(),
 
 });
