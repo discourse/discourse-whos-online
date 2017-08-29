@@ -12,8 +12,13 @@ export default {
     // If user not allowed, don't display
     if(!onlineService.get('shouldDisplay')) return;
 
+    const indicatorType = siteSettings.whos_online_avatar_indicator;
+
     // If feature disabled, don't display
-    if(!siteSettings.whos_online_show_avatar_icon) return;
+    if(indicatorType === 'none') return;
+
+    // Set the html class accordingly
+    $('html').addClass(`whos-online-${indicatorType}`);
 
     withPluginApi('0.2', api => {
 

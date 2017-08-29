@@ -24,6 +24,11 @@ plugins:
     default: 0
     enum: 'TrustLevelSetting'
     client: true
-  whos_online_show_avatar_icon:
-    default: true
+  whos_online_avatar_indicator:
+    default: 'glow'
+    type: enum
     client: true
+    choices:
+      - glow
+      - flair
+      - none
