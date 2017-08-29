@@ -5,5 +5,8 @@ it:
     whos_online_collapse_threshold: "Il numero di utenti richiesto prima che gli avatar vengano sovrapposti"
     whos_online_maximum_display: "Numero massimo di utenti da mostrare"
     whos_online_minimum_display: "Numero minimo di utenti da mostrare"
+    whos_online_hide_below_minimum_display: "Nascondi completamente il widget se il numero di utenti è inferiore al minimum_display"
     whos_online_display_public: "Mostra chi è online al pubblico (nessun accesso richiesto)"
     whos_online_display_min_trust_level: "Livello di esperienza minimo richiesto per vedere chi è online"
+    whos_online_avatar_indicator: "Mostra un indicatore sugli avatar che descrive il loro stato online"
+    whos_online_avatar_indicator_topic_lists: "Mostra gli indicatori online nelle liste degli argomenti"
