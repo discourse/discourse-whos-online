@@ -1,37 +1,37 @@
 #whos-online {
-	color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
-	padding-left: 5px;
+  color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+  padding-left: 5px;
 
-	a{
-    	transition: margin-right 1s, margin-left 1s, opacity 0.5s;
+  a{
+      transition: margin-right 1s, margin-left 1s, opacity 0.5s;
       transition-delay: 1s;
-    	opacity:1;
-    	&.is-hidden{
-    		opacity:0;
-    	}
+      opacity:1;
+      &.is-hidden{
+        opacity:0;
+      }
     }
 
-	&.collapsed{
+  &.collapsed{
 
-		a{
-			margin-right: -15px;
-			margin-left: 0px;
-		}
+    a{
+      margin-right: -15px;
+      margin-left: 0px;
+    }
 
-    	&:hover a{	    	
-    		margin-left: 0px;
-    		
-    		margin-right: 0px;
-    		
-    		&:first-of-type{
-    			margin-left: 0px;
-	    	}
-	    	&:last-of-type{
-	    		margin-right: 0px;
-	    	}
-    	}
+      &:hover a{        
+        margin-left: 0px;
+        
+        margin-right: 0px;
+        
+        &:first-of-type{
+          margin-left: 0px;
+        }
+        &:last-of-type{
+          margin-right: 0px;
+        }
+      }
 
-	}
+  }
 
 }
 
