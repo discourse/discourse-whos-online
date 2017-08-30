@@ -111,6 +111,7 @@ html.whos-online-ring {
   border-radius: 50%;
   background-color: $success;
   border: 2px solid $secondary;
+  pointer-events: none;
 }
 
 html.whos-online-flair {
