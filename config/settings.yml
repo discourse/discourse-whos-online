@@ -25,10 +25,11 @@ plugins:
     enum: 'TrustLevelSetting'
     client: true
   whos_online_avatar_indicator:
-    default: 'glow'
+    default: 'ring'
     type: enum
     client: true
     choices:
+      - ring
       - glow
       - flair
       - none

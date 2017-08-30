@@ -68,6 +68,40 @@ html.whos-online-glow {
   }
 }
 
+html.whos-online-ring {
+  #user-card.user-online .user-card-avatar img.avatar
+  {
+    box-shadow: 0 0 0 2px $secondary, 0 0 0 5px lighten($success, 30%);
+    
+  }
+
+  .topic-avatar.user-online img.avatar{
+    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+  }
+
+  .topic-map .avatars .user-online img.avatar{
+   box-shadow: 0 0 0 1px $secondary, 0 0 0 2px lighten($success, 30%);   
+  }
+
+  &.mobile-view .topic-list-item.last-poster-online img.avatar{
+    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+  }
+
+  .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar{
+    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+  }
+
+  body.user-page-online .primary img.avatar{
+    box-shadow: 0 0 0 2px $secondary, 0 0 0 5px lighten($success, 30%);
+    margin: 8px;
+  }
+
+  body.user-page-online .collapsed-info .primary img.avatar{
+    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+    margin: 5px; 
+  }
+}
+
 .whos-online-flair-prototype{
   display: block;
   position: absolute;
