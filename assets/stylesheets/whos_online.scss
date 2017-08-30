@@ -4,6 +4,7 @@
 
 	a{
     	transition: margin-right 1s, margin-left 1s, opacity 0.5s;
+      transition-delay: 1s;
     	opacity:1;
     	&.is-hidden{
     		opacity:0;
