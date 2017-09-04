@@ -82,35 +82,39 @@ export default {
         });
       }
 
+      api.modifyClass('component:scrolling-post-stream', {
+        didInsertElement() {
+          this._super();
+          this.appEvents.on('whosonline:changed', changedUserIds => {
+            changedUserIds.forEach( (id) => {
+              let postIds = this.get('attrs').posts.value
+                            .posts.filter(({user_id})=>{ return user_id === id; })
+                            .map((post) => post.id);
+
+              postIds.forEach(postId => {
+                this.dirtyKeys.keyDirty(`post-${postId}`);
+                this.dirtyKeys.keyDirty(`post-${postId}-avatar-${id}`, {onRefresh: 'updateOnline'});
+              });
+
+            });
+            this.queueRerender();
+          });
+        },
+        willDestroyElement() {
+          this.appEvents.off('whosonline:changed');
+        }
+      });
       api.reopenWidget('post-avatar',
         {
-          defaultState() {
-            this.appEvents.on("whosonline:changed", () => {
-              this.scheduleRerender();
-            });
-            return {};
+          buildKey: (attrs) => `post-${attrs.id}-avatar-${attrs.user_id}`,
+          defaultState(attrs) {
+            return { online: onlineService.isUserOnline(attrs.user_id) };
           },
-
-          buildClasses(){
-            if(onlineService.isUserOnline(this.attrs.user_id)){
-              return 'user-online';
-            }
-            return [];
-          }
-        }
-      );
-
-      api.reopenWidget('topic-participant',
-        {
-          defaultState() {
-            this.appEvents.on("whosonline:changed", () => {
-              this.scheduleRerender();
-            });
-            return {};
+          updateOnline() {
+            this.state.online = onlineService.isUserOnline(this.attrs.user_id);
           },
-
-          buildClasses(){
-            if(onlineService.isUserOnline(this.attrs.id)){
+          buildClasses(attrs, state){
+            if(state.online){
               return 'user-online';
             }
             return [];

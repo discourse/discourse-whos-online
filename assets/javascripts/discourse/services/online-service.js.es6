@@ -42,13 +42,19 @@ export default Ember.Service.extend({
 
                 // Fetch up to date data
                 ajax('/whosonline/get.json', {method: 'GET'}).then(function(result){
+                    let oldUserIds = currentUsers.map( ({ id }) => id );
                     onlineService.set('users', result['users']);
+                    let newUserIds = result['users'].map( ({ id }) => id );
                     onlineService.set('_lastMessageId', result['messagebus_id']);
                     onlineService.messageBus.subscribe('/whos-online', onlineService.messageProcessor(), result['messagebus_id']);
+
+                    let changedUsers = [...oldUserIds, ...newUserIds];
+
+                    onlineService.appEvents.trigger('whosonline:changed', changedUsers);
                 }, function(msg){
                     console.log(msg); // Log the error
                 });
-                onlineService.appEvents.trigger('whosonline:changed');
+
                 return;
             }
 
@@ -58,7 +64,7 @@ export default Ember.Service.extend({
                 case 'going_online':
                     var user = data['user'];
                     currentUsers.pushObject(user);
-
+                    onlineService.appEvents.trigger('whosonline:changed', [data['user'].id]);
                     break;
                 case 'going_offline':
                     var matchById = function(element){
@@ -72,12 +78,13 @@ export default Ember.Service.extend({
                         }
                     });
 
+                    onlineService.appEvents.trigger('whosonline:changed', data['users']);
+
                     break;
                 default:
                     console.error('Unknown message type sent to /whos-online');
                     break;
             }
-            onlineService.appEvents.trigger('whosonline:changed');
 
         };
     },
@@ -89,7 +96,7 @@ export default Ember.Service.extend({
             this.set('users',startingData['users']);
             this.set('_lastMessageId', startingData['messagebus_id']);
 
-            this.appEvents.trigger('whosonline:changed');
+            this.appEvents.trigger('whosonline:changed', startingData['users'].map( ({ id }) => id ));
 
             this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
         }
