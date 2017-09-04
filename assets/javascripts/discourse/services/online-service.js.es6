@@ -7,7 +7,6 @@ export default Ember.Service.extend({
     messageBus: window.MessageBus,
 
     users:[],
-    indexedUsers: new Map(),
 
     appEvents: Discourse.__container__.lookup('app-events:main'),
     siteSettings: Discourse.__container__.lookup('site-settings:main'),
@@ -16,7 +15,16 @@ export default Ember.Service.extend({
 
     isUserOnline(user_id){
 
-        return this.get('indexedUsers').has(user_id);
+        var matchById = function(element){
+                            return element.id === this;
+                        };
+
+        var found = this.get('users').find(matchById, user_id);
+        if(found !== undefined){
+            return true;
+        }
+
+        return false;
 
     },
 
@@ -25,7 +33,7 @@ export default Ember.Service.extend({
 
         return function(data, global_id, message_id){
             var currentUsers = onlineService.get('users');
-            var indexedUsers = onlineService.get('indexedUsers');
+
             var last_message_id = onlineService.get('_lastMessageId');
 
             if(message_id !== last_message_id + 1){ // If not the next message
@@ -35,7 +43,6 @@ export default Ember.Service.extend({
                 // Fetch up to date data
                 ajax('/whosonline/get.json', {method: 'GET'}).then(function(result){
                     onlineService.set('users', result['users']);
-                    this.updateIndex();
                     onlineService.set('_lastMessageId', result['messagebus_id']);
                     onlineService.messageBus.subscribe('/whos-online', onlineService.messageProcessor(), result['messagebus_id']);
                 }, function(msg){
@@ -50,8 +57,8 @@ export default Ember.Service.extend({
             switch (data['message_type']) {
                 case 'going_online':
                     var user = data['user'];
-                    indexedUsers.set(user.id, true);
                     currentUsers.pushObject(user);
+
                     break;
                 case 'going_offline':
                     var matchById = function(element){
@@ -61,7 +68,6 @@ export default Ember.Service.extend({
                     data['users'].forEach(function(user_id){
                         var found = currentUsers.find(matchById, user_id);
                         if(found !== undefined){
-                            indexedUsers.delete(user_id);
                             currentUsers.removeObject(found);
                         }
                     });
@@ -81,21 +87,12 @@ export default Ember.Service.extend({
 
         if(startingData){
             this.set('users',startingData['users']);
-            this.updateIndex();
             this.set('_lastMessageId', startingData['messagebus_id']);
 
             this.appEvents.trigger('whosonline:changed');
 
             this.messageBus.subscribe('/whos-online', this.messageProcessor(), startingData['messagebus_id']);
         }
-    },
-
-    updateIndex() {
-        let indexedUsers = this.get('indexedUsers');
-        indexedUsers.clear();
-        this.get('users').forEach((user) => {
-            indexedUsers.set(user.id, true);
-        });
     },
 
     shouldDisplay: function() {
