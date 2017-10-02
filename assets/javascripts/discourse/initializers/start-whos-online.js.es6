@@ -40,8 +40,8 @@ export default {
         onlineService: inject.service('online-service'),
 
         afterModel(){
-          this._super();
           this.updateBodyClass();
+          return this._super();
         },
 
         updateBodyClass: function(){
