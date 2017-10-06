@@ -5,7 +5,7 @@ fi:
     whos_online_collapse_threshold: "Kuinka monta käyttäjää tarvitaan, jotta avatarit aletaan näyttää lomittain"
     whos_online_maximum_display: "Näytettävien käyttäjien enimmäismäärä"
     whos_online_minimum_display: "Näytettävien käyttäjien vähimmäismäärä"
-    whos_online_hide_below_minimum_display: "Completely hide the widget if number of users is below minimum_display"
+    whos_online_hide_below_minimum_display: "Piilota kokonaan, jos käyttäjien määrä on alle minimum_display"
     whos_online_display_public: "Näytä paikalla olevat kaikille (sisäänkirjautumista ei vaadita)"
     whos_online_display_min_trust_level: "Luottamustaso joka vaaditaan, jotta näkee paikalla olevat"
     whos_online_avatar_indicator: "Näytä käyttäjän avatarin päällä indikaattori, joka kertoo onko käyttäjä paikalla"
