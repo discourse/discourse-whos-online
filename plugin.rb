@@ -44,25 +44,6 @@ after_initialize do
     mount ::DiscourseWhosOnline::Engine, at: '/whosonline'
   end
 
-  if not Discourse.has_needed_version?(Discourse::VERSION::STRING, '1.8.0.beta9')
-    # Monkeypatch User class to add DiscourseEvent trigger
-    require_dependency 'user'
-    class ::User
-      alias_method :old_update_last_seen!, :update_last_seen!
-
-      def update_last_seen!(now = Time.zone.now)
-        now_date = now.to_date
-        # Only update last seen once every minute
-        redis_key = "user:#{id}:#{now_date}"
-        return if $redis.exists(redis_key)
-
-        old_update_last_seen!(now)
-
-        DiscourseEvent.trigger(:user_seen, self)
-      end
-    end
-  end
-
   add_to_serializer(:site, :users_online) do
     online_user_ids = $redis.smembers("users_online")
     online_users = User.where(id: online_user_ids)
