@@ -18,20 +18,54 @@ after_initialize do
     end
   end
 
+  module ::DiscourseWhosOnline::OnlineManager
+
+    def self.redis_key
+      'whosonline_users'
+    end
+
+    # return true if a key was added
+    def self.add(user_id)
+      $redis.hset(redis_key, user_id, Time.zone.now)
+    end
+
+    # return true if a key was deleted
+    def self.remove(user_id)
+      $redis.hdel(redis_key, user_id) > 0
+    end
+
+    def self.get_users
+      user_ids = $redis.hkeys(redis_key).map(&:to_i)
+      User.where(id: user_ids)
+    end
+
+    def self.get_serialized_users
+      get_users.map { |user| BasicUserSerializer.new(user, root: false) }
+    end
+
+    def self.cleanup
+      going_offline_ids = []
+
+      # Delete out of date entries
+      hash = $redis.hgetall(redis_key)
+      hash.each do |user_id, time|
+        if Time.zone.now - Time.parse(time) >= SiteSetting.whos_online_active_timeago.minutes
+          going_offline_ids << user_id.to_i if remove(user_id)
+        end
+      end
+
+      going_offline_ids
+    end
+
+  end
+
   require_dependency 'application_controller'
 
   class DiscourseWhosOnline::WhosOnlineController < ::ApplicationController
+    requires_plugin PLUGIN_NAME
+
     def on_request
-      online_user_ids = $redis.smembers("users_online")
-      online_users = User.where(id: online_user_ids)
-
-      serialized_online_users = []
-
-      for user in online_users do
-        serialized_online_users.push(BasicUserSerializer.new(user, root: false))
-      end
-
-      render json: { users: serialized_online_users,
+      render json: { users: ::DiscourseWhosOnline::OnlineManager.get_serialized_users,
                      messagebus_id: MessageBus.last_id('/whos-online') }
     end
   end
@@ -45,32 +79,21 @@ after_initialize do
   end
 
   add_to_serializer(:site, :users_online) do
-    online_user_ids = $redis.smembers("users_online")
-    online_users = User.where(id: online_user_ids)
-
-    serialized_online_users = []
-
-    for user in online_users do
-      serialized_online_users.push(BasicUserSerializer.new(user, root: false))
-    end
-
-    { users: serialized_online_users,
+    { users: ::DiscourseWhosOnline::OnlineManager.get_serialized_users,
       messagebus_id: MessageBus.last_id('/whos-online') }
   end
 
-  # When user seen, update the user:#:online redis key
-  # and add to 'users_online' set if necessary
-  DiscourseEvent.on(:user_seen) do |user|
-    redis_key = "user:#{user.id}:online"
-    expire_seconds = SiteSetting.whos_online_active_timeago.minutes
+  # When user seen, update the redis data
+  on(:user_seen) do |user|
+    was_offline = ::DiscourseWhosOnline::OnlineManager.add(user.id)
 
-    already_online = $redis.exists(redis_key)
+    if was_offline
+      message = {
+        message_type: 'going_online',
+        user: BasicUserSerializer.new(user, root: false)
+      }
 
-    $redis.set(redis_key, '1', ex: expire_seconds)
-
-    if not already_online
-      # Add to the redis set of online users
-      Jobs.enqueue(:whos_online_going_online, user_id: user.id)
+      MessageBus.publish('/whos-online', message.as_json)
     end
   end
 
@@ -83,20 +106,7 @@ after_initialize do
       def execute(args)
         return if !SiteSetting.whos_online_enabled?
 
-        online_users = $redis.smembers("users_online")
-
-        going_offline_ids = []
-
-        for user_id in online_users do
-          redis_key = "user:#{user_id}:online"
-
-          user_still_online = $redis.exists(redis_key)
-
-          if not user_still_online
-            going_offline_ids.push(Integer(user_id))
-            $redis.srem("users_online", user_id)
-          end
-        end
+        going_offline_ids = ::DiscourseWhosOnline::OnlineManager.cleanup
 
         if going_offline_ids.size > 0
           message = {
@@ -109,27 +119,6 @@ after_initialize do
       end
     end
 
-    # This is run whenever a user becomes online
-    class WhosOnlineGoingOnline < Jobs::Base
-
-      def execute(args)
-        return if !SiteSetting.whos_online_enabled?
-
-        user_id = args[:user_id]
-
-        return if $redis.sismember('users_online', user_id)
-
-        new_user = User.find(user_id)
-
-        message = {
-          message_type: 'going_online',
-          user: BasicUserSerializer.new(new_user, root: false)
-        }
-
-        $redis.sadd("users_online", new_user.id)
-        MessageBus.publish('/whos-online', message.as_json)
-      end
-    end
   end
 
 end
