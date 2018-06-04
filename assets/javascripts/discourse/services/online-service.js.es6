@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { ajax } from 'discourse/lib/ajax';
+import User from "discourse/models/user";
 
 export default Ember.Service.extend({
     after: 'message-bus',
@@ -42,9 +43,9 @@ export default Ember.Service.extend({
 
                 // Fetch up to date data
                 ajax('/whosonline/get.json', {method: 'GET'}).then(function(result){
-                    let oldUserIds = currentUsers.map( ({ id }) => id );
-                    onlineService.set('users', result['users']);
-                    let newUserIds = result['users'].map( ({ id }) => id );
+                    let oldUserIds = currentUsers.map( (user) => { return user.get('id'); } );
+                    onlineService.set('users', result['users'].map((user) => { return User.create(user); }));
+                    let newUserIds = result['users'].map( (user) => { return user.get('id'); } );
                     onlineService.set('_lastMessageId', result['messagebus_id']);
                     onlineService.messageBus.subscribe('/whos-online', onlineService.messageProcessor(), result['messagebus_id']);
 
@@ -62,13 +63,13 @@ export default Ember.Service.extend({
 
             switch (data['message_type']) {
                 case 'going_online':
-                    var user = data['user'];
+                    var user = User.create(data['user']);
                     currentUsers.pushObject(user);
-                    onlineService.appEvents.trigger('whosonline:changed', [data['user'].id]);
+                    onlineService.appEvents.trigger('whosonline:changed', [data['user'].get('id')]);
                     break;
                 case 'going_offline':
                     var matchById = function(element){
-                        return element.id === this;
+                        return element.get('id') === this;
                     };
 
                     data['users'].forEach(function(user_id){
@@ -93,7 +94,7 @@ export default Ember.Service.extend({
         var startingData = Discourse.Site.currentProp('users_online');
 
         if(startingData){
-            this.set('users',startingData['users']);
+            this.set('users',startingData['users'].map((user) => { return User.create(user); }));
             this.set('_lastMessageId', startingData['messagebus_id']);
 
             this.appEvents.trigger('whosonline:changed', startingData['users'].map( ({ id }) => id ));
