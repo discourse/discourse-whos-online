@@ -1,0 +1,12 @@
+en:
+  site_settings:
+    whos_online_enabled: "Aktiviert das 'Wer ist online'-Plugin"
+    whos_online_active_timeago: "Vor wieviele Minuten muss die letzte Interaktion erfolgt sein, damit ein Nutzer als 'online' gezählt wird"
+    whos_online_collapse_threshold: "Maximale Anzahl von Nutzern, bevor die Avatare überlappt werden"
+    whos_online_maximum_display: "Die maximale Anzahl gleichzeitig angezeigter Nutzer"
+    whos_online_minimum_display: "Die minimale Anzahl gleichzeitig angezeigter Nutzer"
+    whos_online_hide_below_minimum_display: "Die Leiste komplett verbergen, wenn die Anzahl der Nutzer die Mindestanzahl unterschreitet"
+    whos_online_display_public: "Öffentlich anzeigen wer online ist (keine Anmeldung benötigt)"
+    whos_online_display_min_trust_level: "Benötigte Vertrauensstufe, um zu sehen wer online ist"
+    whos_online_avatar_indicator: "Anzeige des Onlinestatus am Profilbild von Nutzern"
+    whos_online_avatar_indicator_topic_lists: "Onlinestatus auch in Themenliste anzeigen"
