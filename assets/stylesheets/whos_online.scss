@@ -1,113 +1,109 @@
 #whos-online {
-  color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+  color: dark-light-choose(
+    scale-color($primary, $lightness: 50%),
+    scale-color($secondary, $lightness: 50%)
+  );
   padding-left: 5px;
   padding-bottom: 5px;
 
-  a{
-      transition: margin-right 1s, margin-left 1s, opacity 0.5s;
-      transition-delay: 1s;
-      opacity:1;
-      &.is-hidden{
-        opacity:0;
-      }
+  a {
+    transition: margin-right 1s, margin-left 1s, opacity 0.5s;
+    transition-delay: 1s;
+    opacity: 1;
+    &.is-hidden {
+      opacity: 0;
     }
+  }
 
-  &.collapsed{
-
-    a{
+  &.collapsed {
+    a {
       margin-right: -15px;
       margin-left: 0px;
     }
 
-      &:hover a{        
+    &:hover a {
+      margin-left: 0px;
+
+      margin-right: 0px;
+
+      &:first-of-type {
         margin-left: 0px;
-        
-        margin-right: 0px;
-        
-        &:first-of-type{
-          margin-left: 0px;
-        }
-        &:last-of-type{
-          margin-right: 0px;
-        }
       }
-
+      &:last-of-type {
+        margin-right: 0px;
+      }
+    }
   }
-
 }
 
-
 html.whos-online-glow {
-  #user-card.user-online .user-card-avatar img.avatar
-  {
+  #user-card.user-online .user-card-avatar img.avatar {
     box-shadow: 0 0 8px 3px lighten($success, 30%);
   }
 
-  .topic-avatar.user-online img.avatar{
+  .topic-avatar.user-online img.avatar {
     box-shadow: 0 0 4px 1px lighten($success, 30%);
   }
 
-  .topic-map .avatars .user-online img.avatar{
-   box-shadow: 0 0 2px 1px lighten($success, 30%);   
+  .topic-map .avatars .user-online img.avatar {
+    box-shadow: 0 0 2px 1px lighten($success, 30%);
   }
 
-  &.mobile-view .topic-list-item.last-poster-online img.avatar{
+  &.mobile-view .topic-list-item.last-poster-online img.avatar {
     box-shadow: 0 0 4px 1px lighten($success, 30%);
   }
 
-  .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar{
+  .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar {
     box-shadow: 0 0 4px 1px lighten($success, 30%);
   }
 
-  body.user-page-online .primary img.avatar{
+  body.user-page-online .primary img.avatar {
     box-shadow: 0 0 8px 3px lighten($success, 30%);
-    margin: 8px; 
+    margin: 8px;
   }
 
-  body.user-page-online .collapsed-info .primary img.avatar{
+  body.user-page-online .collapsed-info .primary img.avatar {
     box-shadow: 0 0 4px 1px lighten($success, 30%);
-    margin: 5px; 
+    margin: 5px;
   }
 }
 
 html.whos-online-ring {
-  #user-card.user-online .user-card-avatar img.avatar
-  {
+  #user-card.user-online .user-card-avatar img.avatar {
     box-shadow: 0 0 0 2px $secondary, 0 0 0 5px lighten($success, 30%);
-    
   }
 
-  .topic-avatar.user-online img.avatar{
+  .topic-avatar.user-online img.avatar {
     box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
   }
 
-  .topic-map .avatars .user-online img.avatar{
-   box-shadow: 0 0 0 1px $secondary, 0 0 0 2px lighten($success, 30%);   
+  .topic-map .avatars .user-online img.avatar {
+    box-shadow: 0 0 0 1px $secondary, 0 0 0 2px lighten($success, 30%);
   }
 
-  &.mobile-view .topic-list-item.last-poster-online img.avatar{
+  &.mobile-view .topic-list-item.last-poster-online img.avatar {
     box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
   }
 
-  .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar{
+  .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar {
     box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
   }
 
-  body.user-page-online .primary img.avatar{
+  body.user-page-online .primary img.avatar {
     box-shadow: 0 0 0 2px $secondary, 0 0 0 5px lighten($success, 30%);
     margin: 8px;
   }
 
-  body.user-page-online .collapsed-info .primary img.avatar{
+  body.user-page-online .collapsed-info .primary img.avatar {
     box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
-    margin: 5px; 
+    margin: 5px;
   }
 }
 
-.whos-online-flair-prototype{
+.whos-online-flair-prototype {
   display: block;
   position: absolute;
-  content: '';
+  content: "";
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -137,10 +133,11 @@ html.whos-online-flair {
     top: 3px;
   }
 
-  .topic-map .avatars div{ // Add some spacing to the avatars
+  .topic-map .avatars div {
+    // Add some spacing to the avatars
     margin-left: 5px;
   }
-  .topic-map .avatars .user-online::before{
+  .topic-map .avatars .user-online::before {
     @extend .whos-online-flair-prototype;
     top: -1px;
     left: -1px;
@@ -148,10 +145,10 @@ html.whos-online-flair {
     width: 7px;
   }
 
-  &.mobile-view .topic-list-item.last-poster-online div.pull-left{
+  &.mobile-view .topic-list-item.last-poster-online div.pull-left {
     position: relative;
   }
-  &.mobile-view .topic-list-item.last-poster-online div.pull-left::before{
+  &.mobile-view .topic-list-item.last-poster-online div.pull-left::before {
     @extend .whos-online-flair-prototype;
     top: -1px;
     left: -1px;
@@ -159,10 +156,12 @@ html.whos-online-flair {
     width: 10px;
   }
 
-  .latest-topic-list .latest-topic-list-item.last-poster-online .topic-poster{
+  .latest-topic-list .latest-topic-list-item.last-poster-online .topic-poster {
     position: relative;
   }
-  .latest-topic-list .latest-topic-list-item.last-poster-online .topic-poster::before{
+  .latest-topic-list
+    .latest-topic-list-item.last-poster-online
+    .topic-poster::before {
     @extend .whos-online-flair-prototype;
     top: -1px;
     left: -1px;
@@ -170,21 +169,20 @@ html.whos-online-flair {
     width: 10px;
   }
 
-  body.user-page-online .primary::before{
+  body.user-page-online .primary::before {
     @extend .whos-online-flair-prototype;
     top: 5px;
     left: 5px;
     height: 20px;
     width: 20px;
-    transition: all .1s linear;
+    transition: all 0.1s linear;
   }
 
-  body.user-page-online .collapsed-info .primary::before{
+  body.user-page-online .collapsed-info .primary::before {
     @extend .whos-online-flair-prototype;
     top: -1px;
     left: -1px;
     height: 10px;
     width: 10px;
   }
-
 }
