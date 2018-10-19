@@ -85,6 +85,11 @@ after_initialize do
 
   # When user seen, update the redis data
   on(:user_seen) do |user|
+    hidden = false
+    hidden ||= user.user_option.hide_profile_and_presence if defined? user.user_option.hide_profile_and_presence
+    hidden ||= user.id < 0
+    break if hidden
+
     was_offline = ::DiscourseWhosOnline::OnlineManager.add(user.id)
 
     if was_offline
