@@ -37,7 +37,6 @@ export default Ember.Service.extend({
 
       if (message_id !== last_message_id + 1) {
         // If not the next message
-        console.log("Reloading online users data");
         onlineService.messageBus.unsubscribe("/whos-online", this.func);
 
         // Fetch up to date data
@@ -67,7 +66,7 @@ export default Ember.Service.extend({
             onlineService.appEvents.trigger("whosonline:changed", changedUsers);
           },
           function(msg) {
-            console.log(msg); // Log the error
+            console.log(msg); // eslint-disable-line no-console
           }
         );
 
@@ -100,7 +99,7 @@ export default Ember.Service.extend({
 
           break;
         default:
-          console.error("Unknown message type sent to /whos-online");
+          console.error("Unknown message type sent to /whos-online"); // eslint-disable-line no-console
           break;
       }
     };
