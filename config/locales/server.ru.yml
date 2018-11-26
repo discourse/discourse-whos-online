@@ -1,0 +1,12 @@
+ru:
+  site_settings:
+    whos_online_enabled: "Включите плагин: online "
+    whos_online_active_timeago: "Максимальное количество минут с момента последнего взаимодействия пользователя 'online'"
+    whos_online_collapse_threshold: "Количество пользователей, необходимое для перекрытия аватаров"
+    whos_online_maximum_display: "Максимальное количество пользователей для отображения"
+    whos_online_minimum_display: "Минимальное количество пользователей для отображения"
+    whos_online_hide_below_minimum_display: "Полностью скрыть виджет, если количество пользователей ниже minimum_display"
+    whos_online_display_public: "Показывать whos-online to the public (регистрация не нужна)"
+    whos_online_display_min_trust_level: "Минимальный уровень доверия, требуемый, чтобы видеть, кто онлайн"
+    whos_online_avatar_indicator: "Показывать индикатор на аватрках пользователей с описанием их онлайн-статуса"
+    whos_online_avatar_indicator_topic_lists: "Показывать онлайн-индикаторы в списках тем"
