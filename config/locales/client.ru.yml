@@ -1,0 +1,6 @@
+ru:
+  js:
+    whos_online:
+      title: "Online ({{count}}):"
+      tooltip: "Пользователи за последние 5 минут"
+      no_users: "Сейчас на сайте нет пользователей"
