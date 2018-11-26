@@ -80,7 +80,7 @@ export default Ember.Service.extend({
           var user = User.create(data["user"]);
           currentUsers.pushObject(user);
           onlineService.appEvents.trigger("whosonline:changed", [
-            data["user"].get("id")
+            user.get("id")
           ]);
           break;
         case "going_offline":
