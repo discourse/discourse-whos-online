@@ -88,7 +88,7 @@ after_initialize do
     hidden = false
     hidden ||= user.user_option.hide_profile_and_presence if defined? user.user_option.hide_profile_and_presence
     hidden ||= user.id < 0
-    break if hidden
+    next if hidden
 
     was_offline = ::DiscourseWhosOnline::OnlineManager.add(user.id)
 
