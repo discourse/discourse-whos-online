@@ -51,7 +51,7 @@ export default Ember.Service.extend({
                 return User.create(user);
               })
             );
-            let newUserIds = result["users"].map(user => {
+            let newUserIds = onlineService.get("users").map(user => {
               return user.get("id");
             });
             onlineService.set("_lastMessageId", result["messagebus_id"]);
