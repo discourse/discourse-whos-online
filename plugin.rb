@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # name: discourse-whos-online
 # about: Who's online widget
 # version: 1.0
