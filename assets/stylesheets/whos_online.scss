@@ -169,7 +169,10 @@ html.whos-online-flair {
     width: 10px;
   }
 
-  body.user-page-online .primary::before {
+  body.user-page-online
+    .about:not(.collapsed-info)
+    .primary
+    .user-profile-avatar::before {
     @extend .whos-online-flair-prototype;
     top: 5px;
     left: 5px;
