@@ -176,6 +176,7 @@ html.whos-online-flair {
     height: 20px;
     width: 20px;
     transition: all 0.1s linear;
+    z-index: 1;
   }
 
   body.user-page-online .collapsed-info .primary::before {
@@ -184,5 +185,6 @@ html.whos-online-flair {
     left: -1px;
     height: 10px;
     width: 10px;
+    z-index: 1;
   }
 }
