@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/davidtaylorhq/discourse-whos-online.svg?branch=master)](https://travis-ci.org/discourse/discourse-whos-online)
+[![Build Status](https://travis-ci.org/discourse/discourse-whos-online.svg?branch=master)](https://travis-ci.org/discourse/discourse-whos-online)
 
 > :warning: This plugin was originally designed for a small discourse community, and has not been optimized for large sites.
 
