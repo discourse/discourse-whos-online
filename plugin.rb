@@ -107,7 +107,7 @@ after_initialize do
   module ::Jobs
 
     # This clears up users who have now moved offline
-    class WhosOnlineGoingOffline < Jobs::Scheduled
+    class WhosOnlineGoingOffline < ::Jobs::Scheduled
       every 1.minutes
 
       def execute(args)
