@@ -9,7 +9,7 @@ export default Ember.Service.extend({
 
   users: [],
 
-  appEvents: Discourse.__container__.lookup("app-events:main"),
+  appEvents: Discourse.__container__.lookup("service:app-events"),
   siteSettings: Discourse.__container__.lookup("site-settings:main"),
 
   _lastMessageId: null,
