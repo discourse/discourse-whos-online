@@ -1,6 +1,7 @@
 import Ember from "ember";
 import { ajax } from "discourse/lib/ajax";
 import User from "discourse/models/user";
+import Site from "discourse/models/site";
 
 export default Ember.Service.extend({
   after: "message-bus",
@@ -106,7 +107,7 @@ export default Ember.Service.extend({
   },
 
   init() {
-    var startingData = Discourse.Site.currentProp("users_online");
+    var startingData = Site.currentProp("users_online");
 
     if (startingData) {
       this.set(
