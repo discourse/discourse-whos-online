@@ -129,6 +129,7 @@ export default Ember.Service.extend({
         startingData["messagebus_id"]
       );
     }
+    this._super(...arguments);
   },
 
   shouldDisplay: function() {
