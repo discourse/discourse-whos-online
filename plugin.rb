@@ -28,16 +28,16 @@ after_initialize do
 
     # return true if a key was added
     def self.add(user_id)
-      $redis.hset(redis_key, user_id, Time.zone.now)
+      Discourse.redis.hset(redis_key, user_id, Time.zone.now)
     end
 
     # return true if a key was deleted
     def self.remove(user_id)
-      $redis.hdel(redis_key, user_id) > 0
+      Discourse.redis.hdel(redis_key, user_id) > 0
     end
 
     def self.get_users
-      user_ids = $redis.hkeys(redis_key).map(&:to_i)
+      user_ids = Discourse.redis.hkeys(redis_key).map(&:to_i)
       User.where(id: user_ids)
     end
 
@@ -49,7 +49,7 @@ after_initialize do
       going_offline_ids = []
 
       # Delete out of date entries
-      hash = $redis.hgetall(redis_key)
+      hash = Discourse.redis.hgetall(redis_key)
       hash.each do |user_id, time|
         if Time.zone.now - Time.parse(time) >= SiteSetting.whos_online_active_timeago.minutes
           going_offline_ids << user_id.to_i if remove(user_id)
