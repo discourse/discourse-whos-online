@@ -1,4 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
+import discourseComputed from "discourse-common/utils/decorators";
 
 var inject = Ember.inject;
 
@@ -20,17 +21,18 @@ export default {
     // Set the html class accordingly
     $("html").addClass(`whos-online-${indicatorType}`);
 
-    withPluginApi("0.2", api => {
+    withPluginApi("0.2", (api) => {
       api.modifyClass("component:user-card-contents", {
         onlineService: inject.service("online-service"),
         classNameBindings: ["isOnline:user-online"],
 
-        isOnline: function() {
-          if (!this.get("user")) {
+        @discourseComputed("user", "onlineService.users.@each")
+        isOnline(user) {
+          if (!user) {
             return false;
           }
-          return this.get("onlineService").isUserOnline(this.get("user").id);
-        }.property("onlineService.users.@each", "user")
+          return this.onlineService.isUserOnline(user.id);
+        },
       });
 
       // This is a bit hacky, since the user page doesn't currently
@@ -57,7 +59,7 @@ export default {
         deactivate() {
           this._super();
           Ember.$("body").removeClass("user-page-online");
-        }
+        },
       });
 
       if (siteSettings.whos_online_avatar_indicator_topic_lists) {
@@ -65,40 +67,50 @@ export default {
           onlineService: inject.service("online-service"),
           classNameBindings: ["isOnline:last-poster-online"],
 
-          isOnline: function() {
+          @discourseComputed(
+            "topic.lastPoster.id",
+            "topic.lastPosterUser.id",
+            "onlineService.users.@each"
+          )
+          isOnline(lastPosterId, lastPosterUserId) {
             return this.get("onlineService").isUserOnline(
-              this.get("topic.lastPoster.id")
+              lastPosterId || lastPosterUserId
             );
-          }.property("onlineService.users.@each", "user")
+          },
         });
 
         api.modifyClass("component:latest-topic-list-item", {
           onlineService: inject.service("online-service"),
           classNameBindings: ["isOnline:last-poster-online"],
 
-          isOnline: function() {
+          @discourseComputed(
+            "topic.lastPoster.id",
+            "topic.lastPosterUser.id",
+            "onlineService.users.@each"
+          )
+          isOnline(lastPosterId, lastPosterUserId) {
             return this.get("onlineService").isUserOnline(
-              this.get("topic.lastPoster.id")
+              lastPosterId || lastPosterUserId
             );
-          }.property("onlineService.users.@each", "user")
+          },
         });
       }
 
       api.modifyClass("component:scrolling-post-stream", {
         didInsertElement() {
           this._super();
-          this.appEvents.on("whosonline:changed", changedUserIds => {
-            changedUserIds.forEach(id => {
+          this.appEvents.on("whosonline:changed", (changedUserIds) => {
+            changedUserIds.forEach((id) => {
               let postIds = this.get("attrs")
                 .posts.value.posts.filter(({ user_id }) => {
                   return user_id === id;
                 })
-                .map(post => post.id);
+                .map((post) => post.id);
 
-              postIds.forEach(postId => {
+              postIds.forEach((postId) => {
                 this.dirtyKeys.keyDirty(`post-${postId}`);
                 this.dirtyKeys.keyDirty(`post-${postId}-avatar-${id}`, {
-                  onRefresh: "updateOnline"
+                  onRefresh: "updateOnline",
                 });
               });
             });
@@ -107,10 +119,10 @@ export default {
         },
         willDestroyElement() {
           this.appEvents.off("whosonline:changed");
-        }
+        },
       });
       api.reopenWidget("post-avatar", {
-        buildKey: attrs => `post-${attrs.id}-avatar-${attrs.user_id}`,
+        buildKey: (attrs) => `post-${attrs.id}-avatar-${attrs.user_id}`,
         defaultState(attrs) {
           return { online: onlineService.isUserOnline(attrs.user_id) };
         },
@@ -122,8 +134,8 @@ export default {
             return "user-online";
           }
           return [];
-        }
+        },
       });
     });
-  }
+  },
 };
