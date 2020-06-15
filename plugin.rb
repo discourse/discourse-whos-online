@@ -28,7 +28,9 @@ after_initialize do
 
     # return true if a key was added
     def self.add(user_id)
-      Discourse.redis.hset(redis_key, user_id, Time.zone.now)
+      res = Discourse.redis.hset(redis_key, user_id, Time.zone.now)
+      return res > 0 if res.is_a? Integer # Redis driver started returning an integer following https://github.com/redis/redis-rb/commit/ad7191f3a1ff8170bac6f61555ec8cf67fca4047
+      res
     end
 
     # return true if a key was deleted
