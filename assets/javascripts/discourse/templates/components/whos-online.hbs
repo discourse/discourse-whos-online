@@ -1,16 +1,16 @@
 {{#if showWhosOnline }}
-    <div id="whos-online" class="{{if isLong 'collapsed'}}">
-        <span title="{{i18n "whos_online.tooltip"}}">
-        	{{#if isUsers }}
-        		{{i18n "whos_online.title" count=online.users.length}}
-        	{{else}}
-        		{{i18n "whos_online.no_users"}}
-        	{{/if}}
-        </span>
-        {{#if isUsers }}
-        	{{#each users as |user|}}
-        		{{whos-online-avatar user=user}}
-        	{{/each}}
-        {{/if}}
-    </div>
+  <div id="whos-online" class={{if isLong "collapsed"}}>
+    <span title={{i18n "whos_online.tooltip"}}>
+      {{#if isUsers }}
+        {{i18n "whos_online.title" count=online.users.length}}
+      {{else}}
+        {{i18n "whos_online.no_users"}}
+      {{/if}}
+    </span>
+    {{#if isUsers }}
+      {{#each users as |user|}}
+        {{whos-online-avatar user=user}}
+      {{/each}}
+    {{/if}}
+  </div>
 {{/if}}
