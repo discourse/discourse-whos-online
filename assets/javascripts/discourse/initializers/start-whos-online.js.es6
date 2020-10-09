@@ -11,12 +11,16 @@ export default {
     const siteSettings = container.lookup("site-settings:main");
 
     // If user not allowed, don't display
-    if (!onlineService.get("shouldDisplay")) return;
+    if (!onlineService.get("shouldDisplay")) {
+      return;
+    }
 
     const indicatorType = siteSettings.whos_online_avatar_indicator;
 
     // If feature disabled, don't display
-    if (indicatorType === "none") return;
+    if (indicatorType === "none") {
+      return;
+    }
 
     // Set the html class accordingly
     $("html").addClass(`whos-online-${indicatorType}`);
@@ -45,7 +49,7 @@ export default {
           return this._super();
         },
 
-        updateBodyClass: function() {
+        updateBodyClass: function () {
           const user_id = this.modelFor("user").id;
           const isOnline = this.get("onlineService").isUserOnline(user_id);
 

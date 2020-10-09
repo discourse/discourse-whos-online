@@ -16,7 +16,7 @@ export default Ember.Service.extend({
   _lastMessageId: null,
 
   isUserOnline(user_id) {
-    var matchById = function(element) {
+    var matchById = function (element) {
       return element.id === this;
     };
 
@@ -31,7 +31,7 @@ export default Ember.Service.extend({
   messageProcessor() {
     var onlineService = this;
 
-    return function(data, global_id, message_id) {
+    return function (data, global_id, message_id) {
       var currentUsers = onlineService.get("users");
 
       var last_message_id = onlineService.get("_lastMessageId");
@@ -42,17 +42,17 @@ export default Ember.Service.extend({
 
         // Fetch up to date data
         ajax("/whosonline/get.json", { method: "GET" }).then(
-          function(result) {
-            let oldUserIds = currentUsers.map(user => {
+          function (result) {
+            let oldUserIds = currentUsers.map((user) => {
               return user.get("id");
             });
             onlineService.set(
               "users",
-              result["users"].map(user => {
+              result["users"].map((user) => {
                 return User.create(user);
               })
             );
-            let newUserIds = onlineService.get("users").map(user => {
+            let newUserIds = onlineService.get("users").map((user) => {
               return user.get("id");
             });
             onlineService.set("_lastMessageId", result["messagebus_id"]);
@@ -66,7 +66,7 @@ export default Ember.Service.extend({
 
             onlineService.appEvents.trigger("whosonline:changed", changedUsers);
           },
-          function(msg) {
+          function (msg) {
             console.log(msg); // eslint-disable-line no-console
           }
         );
@@ -81,15 +81,15 @@ export default Ember.Service.extend({
           var user = User.create(data["user"]);
           currentUsers.pushObject(user);
           onlineService.appEvents.trigger("whosonline:changed", [
-            user.get("id")
+            user.get("id"),
           ]);
           break;
         case "going_offline":
-          var matchById = function(element) {
+          var matchById = function (element) {
             return element.get("id") === this;
           };
 
-          data["users"].forEach(function(user_id) {
+          data["users"].forEach(function (user_id) {
             var found = currentUsers.find(matchById, user_id);
             if (found !== undefined) {
               currentUsers.removeObject(found);
@@ -112,7 +112,7 @@ export default Ember.Service.extend({
     if (startingData) {
       this.set(
         "users",
-        startingData["users"].map(user => {
+        startingData["users"].map((user) => {
           return User.create(user);
         })
       );
@@ -132,7 +132,7 @@ export default Ember.Service.extend({
     this._super(...arguments);
   },
 
-  shouldDisplay: function() {
+  shouldDisplay: function () {
     // If the plugin is disabled, return false
     if (!this.siteSettings.whos_online_enabled) {
       return false;
@@ -154,5 +154,5 @@ export default Ember.Service.extend({
         this.siteSettings.whos_online_display_min_trust_level
       );
     }
-  }.property()
+  }.property(),
 });

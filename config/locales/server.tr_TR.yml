@@ -7,4 +7,3 @@ tr_TR:
     whos_online_minimum_display: "Görüntülenecek minimum kullanıcı sayısı"
     whos_online_display_public: "Çevrimiçileri gösterin. (Oturum açma gerekmiyor)"
     whos_online_display_min_trust_level: "Gösterilmek için gereken güven seviyesi"
-
