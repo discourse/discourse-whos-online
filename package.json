@@ -1,0 +1,10 @@
+{
+  "name": "discourse-whos-online",
+  "version": "1.0.0",
+  "repository": "git@github.com:discourse/discourse-whos-online.git",
+  "author": "David Taylor",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-config-discourse": "^1.1.3"
+  }
+}
