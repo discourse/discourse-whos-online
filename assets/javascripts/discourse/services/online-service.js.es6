@@ -1,9 +1,9 @@
-import Ember from "ember";
+import Service from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
 import User from "discourse/models/user";
 import Site from "discourse/models/site";
 
-export default Ember.Service.extend({
+export default Service.extend({
   after: "message-bus",
 
   messageBus: window.MessageBus,
