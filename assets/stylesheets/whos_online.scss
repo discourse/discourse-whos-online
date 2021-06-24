@@ -1,8 +1,5 @@
 #whos-online {
-  color: dark-light-choose(
-    scale-color($primary, $lightness: 50%),
-    scale-color($secondary, $lightness: 50%)
-  );
+  color: var(--primary-medium);
   padding-left: 5px;
   padding-bottom: 5px;
 
@@ -38,64 +35,64 @@
 
 html.whos-online-glow {
   #user-card.user-online .user-card-avatar img.avatar {
-    box-shadow: 0 0 8px 3px lighten($success, 30%);
+    box-shadow: 0 0 8px 3px var(--success-medium);
   }
 
   .topic-avatar.user-online img.avatar {
-    box-shadow: 0 0 4px 1px lighten($success, 30%);
+    box-shadow: 0 0 4px 1px var(--success-medium);
   }
 
   .topic-map .avatars .user-online img.avatar {
-    box-shadow: 0 0 2px 1px lighten($success, 30%);
+    box-shadow: 0 0 2px 1px var(--success-medium);
   }
 
   &.mobile-view .topic-list-item.last-poster-online img.avatar {
-    box-shadow: 0 0 4px 1px lighten($success, 30%);
+    box-shadow: 0 0 4px 1px var(--success-medium);
   }
 
   .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar {
-    box-shadow: 0 0 4px 1px lighten($success, 30%);
+    box-shadow: 0 0 4px 1px var(--success-medium);
   }
 
   body.user-page-online .primary img.avatar {
-    box-shadow: 0 0 8px 3px lighten($success, 30%);
+    box-shadow: 0 0 8px 3px var(--success-medium);
     margin: 8px;
   }
 
   body.user-page-online .collapsed-info .primary img.avatar {
-    box-shadow: 0 0 4px 1px lighten($success, 30%);
+    box-shadow: 0 0 4px 1px var(--success-medium);
     margin: 5px;
   }
 }
 
 html.whos-online-ring {
   #user-card.user-online .user-card-avatar img.avatar {
-    box-shadow: 0 0 0 2px $secondary, 0 0 0 5px lighten($success, 30%);
+    box-shadow: 0 0 0 2px var(--secondary), 0 0 0 5px var(--success-medium);
   }
 
   .topic-avatar.user-online img.avatar {
-    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
   }
 
   .topic-map .avatars .user-online img.avatar {
-    box-shadow: 0 0 0 1px $secondary, 0 0 0 2px lighten($success, 30%);
+    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 2px var(--success-medium);
   }
 
   &.mobile-view .topic-list-item.last-poster-online img.avatar {
-    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
   }
 
   .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar {
-    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
   }
 
   body.user-page-online .primary img.avatar {
-    box-shadow: 0 0 0 2px $secondary, 0 0 0 5px lighten($success, 30%);
+    box-shadow: 0 0 0 2px var(--secondary), 0 0 0 5px var(--success-medium);
     margin: 8px;
   }
 
   body.user-page-online .collapsed-info .primary img.avatar {
-    box-shadow: 0 0 0 1px $secondary, 0 0 0 3px lighten($success, 30%);
+    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
     margin: 5px;
   }
 }
@@ -107,8 +104,8 @@ html.whos-online-ring {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: $success;
-  border: 2px solid $secondary;
+  background-color: var(--success);
+  border: 2px solid var(--secondary);
   pointer-events: none;
 }
 
