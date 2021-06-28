@@ -1,7 +1,7 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import discourseComputed from "discourse-common/utils/decorators";
-
-var inject = Ember.inject;
+import { inject as service } from "@ember/service";
+import { observes } from "discourse-common/utils/decorators";
 
 export default {
   name: "start-whos-online",
@@ -27,7 +27,7 @@ export default {
 
     withPluginApi("0.2", (api) => {
       api.modifyClass("component:user-card-contents", {
-        onlineService: inject.service("online-service"),
+        onlineService: service("online-service"),
         classNameBindings: ["isOnline:user-online"],
 
         @discourseComputed("user", "onlineService.users.@each")
@@ -42,14 +42,15 @@ export default {
       // This is a bit hacky, since the user page doesn't currently
       // use components
       api.modifyClass("route:user", {
-        onlineService: inject.service("online-service"),
+        onlineService: service("online-service"),
 
         afterModel() {
           this.updateBodyClass();
           return this._super();
         },
 
-        updateBodyClass: function () {
+        @observes("onlineService.users.@each")
+        updateBodyClass() {
           const user_id = this.modelFor("user").id;
           const isOnline = this.get("onlineService").isUserOnline(user_id);
 
@@ -58,7 +59,7 @@ export default {
           } else {
             Ember.$("body").removeClass("user-page-online");
           }
-        }.observes("onlineService.users.@each"),
+        },
 
         deactivate() {
           this._super();
@@ -68,7 +69,7 @@ export default {
 
       if (siteSettings.whos_online_avatar_indicator_topic_lists) {
         api.modifyClass("component:topic-list-item", {
-          onlineService: inject.service("online-service"),
+          onlineService: service("online-service"),
           classNameBindings: ["isOnline:last-poster-online"],
 
           @discourseComputed(
@@ -84,7 +85,7 @@ export default {
         });
 
         api.modifyClass("component:latest-topic-list-item", {
-          onlineService: inject.service("online-service"),
+          onlineService: service("online-service"),
           classNameBindings: ["isOnline:last-poster-online"],
 
           @discourseComputed(

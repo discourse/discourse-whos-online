@@ -2,25 +2,22 @@ import Service from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
 import User from "discourse/models/user";
 import Site from "discourse/models/site";
+import { computed } from "@ember/object";
+import { inject as service } from "@ember/service";
 
 export default Service.extend({
   after: "message-bus",
-
   messageBus: window.MessageBus,
-
-  users: [],
-
-  appEvents: Discourse.__container__.lookup("service:app-events"),
-  siteSettings: Discourse.__container__.lookup("site-settings:main"),
-
+  users: null,
+  appEvents: service(),
   _lastMessageId: null,
 
   isUserOnline(user_id) {
-    var matchById = function (element) {
+    let matchById = function (element) {
       return element.id === this;
     };
 
-    var found = this.get("users").find(matchById, user_id);
+    let found = this.get("users").find(matchById, user_id);
     if (found !== undefined) {
       return true;
     }
@@ -29,12 +26,12 @@ export default Service.extend({
   },
 
   messageProcessor() {
-    var onlineService = this;
+    let onlineService = this;
 
     return function (data, global_id, message_id) {
-      var currentUsers = onlineService.get("users");
+      let currentUsers = onlineService.get("users");
 
-      var last_message_id = onlineService.get("_lastMessageId");
+      let last_message_id = onlineService.get("_lastMessageId");
 
       if (message_id !== last_message_id + 1) {
         // If not the next message
@@ -78,19 +75,19 @@ export default Service.extend({
 
       switch (data["message_type"]) {
         case "going_online":
-          var user = User.create(data["user"]);
+          let user = User.create(data["user"]);
           currentUsers.pushObject(user);
           onlineService.appEvents.trigger("whosonline:changed", [
             user.get("id"),
           ]);
           break;
         case "going_offline":
-          var matchById = function (element) {
+          let matchById = function (element) {
             return element.get("id") === this;
           };
 
           data["users"].forEach(function (user_id) {
-            var found = currentUsers.find(matchById, user_id);
+            let found = currentUsers.find(matchById, user_id);
             if (found !== undefined) {
               currentUsers.removeObject(found);
             }
@@ -107,7 +104,11 @@ export default Service.extend({
   },
 
   init() {
-    var startingData = Site.currentProp("users_online");
+    this._super(...arguments);
+
+    this.users = [];
+
+    let startingData = Site.currentProp("users_online");
 
     if (startingData) {
       this.set(
@@ -132,7 +133,8 @@ export default Service.extend({
     this._super(...arguments);
   },
 
-  shouldDisplay: function () {
+  @computed
+  get shouldDisplay() {
     // If the plugin is disabled, return false
     if (!this.siteSettings.whos_online_enabled) {
       return false;
@@ -144,15 +146,13 @@ export default Service.extend({
     }
 
     // Check user trust levels
-    var currentUser = Discourse.User.current();
-
-    if (currentUser === null) {
+    if (!this.currentUser) {
       return false;
     } else {
       return (
-        currentUser.trust_level >=
+        this.currentUser.trust_level >=
         this.siteSettings.whos_online_display_min_trust_level
       );
     }
-  }.property(),
+  }
 });
