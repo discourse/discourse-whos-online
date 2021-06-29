@@ -16,7 +16,7 @@ export default Component.extend({
       return false;
     }
 
-    return this.online.get("shouldDisplay");
+    return this.online.shouldDisplay;
   },
 
   @computed("online.users.@each")
