@@ -17,7 +17,7 @@ export default Service.extend({
       return element.id === this;
     };
 
-    let found = this.get("users").find(matchById, user_id);
+    let found = this.users.find(matchById, user_id);
     if (found !== undefined) {
       return true;
     }
