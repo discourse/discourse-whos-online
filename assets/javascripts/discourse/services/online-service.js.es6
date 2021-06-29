@@ -154,5 +154,5 @@ export default Service.extend({
         this.siteSettings.whos_online_display_min_trust_level
       );
     }
-  }
+  },
 });

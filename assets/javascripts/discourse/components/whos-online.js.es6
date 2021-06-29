@@ -38,8 +38,7 @@ export default Component.extend({
   @computed("online.users.length")
   get isUsers() {
     return (
-      this.online.users.length >=
-      this.siteSettings.whos_online_minimum_display
+      this.online.users.length >= this.siteSettings.whos_online_minimum_display
     );
-  }
+  },
 });
