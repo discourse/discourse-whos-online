@@ -106,7 +106,7 @@ export default Service.extend({
   init() {
     this._super(...arguments);
 
-    this.users = [];
+    this.set("users", []);
 
     let startingData = Site.currentProp("users_online");
 
