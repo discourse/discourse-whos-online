@@ -1,12 +1,12 @@
 import Component from "@ember/component";
 import { inject as service } from "@ember/service";
-import { computed } from "@ember/object";
+import discourseComputed from "discourse-common/utils/decorators";
 
 export default Component.extend({
   online: service("online-service"),
 
-  @computed
-  get showWhosOnline() {
+  @discourseComputed("online.users.length")
+  showWhosOnline() {
     // If the number of users is less than the minimum, and it's set to hide, hide it
     if (
       this.online.users.length <
@@ -19,24 +19,24 @@ export default Component.extend({
     return this.online.shouldDisplay;
   },
 
-  @computed("online.users.@each")
-  get users() {
+  @discourseComputed("online.users.@each")
+  users() {
     return this.online.users.slice(
       0,
       this.siteSettings.whos_online_maximum_display
     );
   },
 
-  @computed("online.users.length")
-  get isLong() {
+  @discourseComputed("online.users.length")
+  isLong() {
     return (
       this.online.users.length >=
       this.siteSettings.whos_online_collapse_threshold
     );
   },
 
-  @computed("online.users.length")
-  get isUsers() {
+  @discourseComputed("online.users.length")
+  isUsers() {
     return (
       this.online.users.length >= this.siteSettings.whos_online_minimum_display
     );
