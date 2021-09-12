@@ -3,6 +3,8 @@ import discourseComputed from "discourse-common/utils/decorators";
 import { inject as service } from "@ember/service";
 import { observes } from "discourse-common/utils/decorators";
 
+const PLUGIN_ID = "whos-online";
+
 export default {
   name: "start-whos-online",
 
@@ -27,6 +29,7 @@ export default {
 
     withPluginApi("0.2", (api) => {
       api.modifyClass("component:user-card-contents", {
+        pluginId: PLUGIN_ID,
         onlineService: service("online-service"),
         classNameBindings: ["isOnline:user-online"],
 
@@ -42,6 +45,7 @@ export default {
       // This is a bit hacky, since the user page doesn't currently
       // use components
       api.modifyClass("route:user", {
+        pluginId: PLUGIN_ID,
         onlineService: service("online-service"),
 
         afterModel() {
@@ -69,6 +73,7 @@ export default {
 
       if (siteSettings.whos_online_avatar_indicator_topic_lists) {
         api.modifyClass("component:topic-list-item", {
+          pluginId: PLUGIN_ID,
           onlineService: service("online-service"),
           classNameBindings: ["isOnline:last-poster-online"],
 
@@ -85,6 +90,7 @@ export default {
         });
 
         api.modifyClass("component:latest-topic-list-item", {
+          pluginId: PLUGIN_ID,
           onlineService: service("online-service"),
           classNameBindings: ["isOnline:last-poster-online"],
 
@@ -102,6 +108,7 @@ export default {
       }
 
       api.modifyClass("component:scrolling-post-stream", {
+        pluginId: PLUGIN_ID,
         didInsertElement() {
           this._super();
           this.appEvents.on("whosonline:changed", (changedUserIds) => {
