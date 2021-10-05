@@ -9,3 +9,4 @@ sv:
     whos_online:
       title: "Online (%{count}):"
       tooltip: "Användare som setts under de senaste 5 minuterna"
+      no_users: "Inga användare online just nu"

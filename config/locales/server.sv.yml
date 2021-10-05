@@ -5,3 +5,14 @@
 # https://translate.discourse.org/
 
 sv:
+  site_settings:
+    whos_online_enabled: "Aktivera Who's Online-tillägget"
+    whos_online_active_timeago: "Det maximala antalet minuter sedan senaste interaktion då en användare anses vara \"online\""
+    whos_online_collapse_threshold: "Antalet användare som krävs innan avatarerna överlappar varandra"
+    whos_online_maximum_display: "Maximalt antal användare att visa"
+    whos_online_minimum_display: "Minimalt antal användare att visa"
+    whos_online_hide_below_minimum_display: "Dölj widgeten helt om antalet användare är under minimum_display"
+    whos_online_display_public: "Visa vem som är online för allmänheten (ingen inloggning krävs)"
+    whos_online_display_min_trust_level: "Lägsta förtroendenivå som krävs för att se vem som är online"
+    whos_online_avatar_indicator: "Visa en indikator på användares avatarer som beskriver deras online-status"
+    whos_online_avatar_indicator_topic_lists: "Visa online-indikatorer i ämneslistor"

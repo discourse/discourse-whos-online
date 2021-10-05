@@ -5,3 +5,8 @@
 # https://translate.discourse.org/
 
 he:
+  js:
+    whos_online:
+      title: "מקוונים (%{count}):"
+      tooltip: "משתמשים שנראו ב־5 הדקות האחרונות"
+      no_users: "אין משתמשים מקוונים כרגע"
