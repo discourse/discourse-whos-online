@@ -5,3 +5,14 @@
 # https://translate.discourse.org/
 
 he:
+  site_settings:
+    whos_online_enabled: "הפעלת התוסף מי מקוון"
+    whos_online_active_timeago: "מספר הדקות המרבי מאז הפעם האחרונה שמשתמש נחשב ‚מקוון’"
+    whos_online_collapse_threshold: "מספר המשתמשים הנדרש בטרם חפיפת התמונות היצוגיות"
+    whos_online_maximum_display: "מספר המשתמשים המרבי להצגה"
+    whos_online_minimum_display: "מספר המשתמשים המזערי להצגה"
+    whos_online_hide_below_minimum_display: "להסתיר את הוידג׳ט לחלוטין אם מספר המשתמשים הוא פחות מאשר minimum_display"
+    whos_online_display_public: "להציג מי מקוון לציבור (לא נדרשת כניסה למערכת)"
+    whos_online_display_min_trust_level: "דרגת האמון המזערית הנדרשת כדי לצפות מי מקוון"
+    whos_online_avatar_indicator: "הצגת מחוון על התמונה הייצוגית של המשתמש שמתאר את מצב החיבור של המשתמש"
+    whos_online_avatar_indicator_topic_lists: "הצגת מחווני מצב מקוון ברשימות הנושאים"
