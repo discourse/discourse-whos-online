@@ -1,9 +1,10 @@
 plugins:
   whos_online_enabled:
-    default: true
-    client: true
+    default: false
   whos_online_active_timeago:
     default: 5
+    min: 1
+    max: 1440 # 24 hours
     client: true
   whos_online_collapse_threshold:
     default: 10

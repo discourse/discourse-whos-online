@@ -1,13 +1,13 @@
-{{#if showWhosOnline }}
+{{#if shouldDisplay }}
   <div id="whos-online" class={{if isLong "collapsed"}}>
     <span title={{i18n "whos_online.tooltip"}}>
-      {{#if isUsers }}
-        {{i18n "whos_online.title" count=online.users.length}}
+      {{#if hasUsers }}
+        {{i18n "whos_online.title" count=count}}
       {{else}}
         {{i18n "whos_online.no_users"}}
       {{/if}}
     </span>
-    {{#if isUsers }}
+    {{#if hasUsers }}
       {{#each users as |user|}}
         {{whos-online-avatar user=user}}
       {{/each}}
