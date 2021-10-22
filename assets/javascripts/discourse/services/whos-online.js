@@ -8,6 +8,7 @@ export default class WhosOnlineService extends Service {
   @service appEvents;
   @readOnly("channel.users") users;
   @readOnly("channel.count") count;
+  @readOnly("channel.count_only") count_only;
 
   init() {
     super.init(...arguments);

@@ -16,9 +16,14 @@ export default class WhosOnline extends Component {
     );
   }
 
-  @computed("count")
+  @computed("users", "users.length")
   get hasUsers() {
-    return this.count >= this.siteSettings.whos_online_minimum_display;
+    return this.users && this.users.length > 0;
+  }
+
+  @computed("count")
+  get hasCount() {
+    return this.count && this.count > 0;
   }
 
   @computed("count")

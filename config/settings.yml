@@ -37,3 +37,5 @@ plugins:
   whos_online_avatar_indicator_topic_lists:
     default: false
     client: true
+  whos_online_count_only:
+    default: false

@@ -23,6 +23,7 @@ after_initialize do
       else
         config.allowed_group_ids = [::Group::AUTO_GROUPS[:trust_level_0]]
       end
+      config.count_only = SiteSetting.whos_online_count_only
       config
     end
   end
