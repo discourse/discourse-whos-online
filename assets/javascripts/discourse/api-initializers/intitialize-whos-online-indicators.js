@@ -128,7 +128,7 @@ export default apiInitializer("0.8", (api) => {
   api.reopenWidget("post-avatar", {
     buildKey: (attrs) => `post-${attrs.id}-avatar-${attrs.user_id}`,
     isUserOnline(userId) {
-      return this.container.lookup("service:whos-online").isUserOnline(userId);
+      return this.register.lookup("service:whos-online").isUserOnline(userId);
     },
     defaultState(attrs) {
       return {
