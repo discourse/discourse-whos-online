@@ -18,12 +18,12 @@ export default class WhosOnline extends Component {
 
   @computed("users", "users.length")
   get hasUsers() {
-    return this.users && this.users.length > 0;
+    return this.users?.length > 0;
   }
 
   @computed("count")
   get hasCount() {
-    return this.count && this.count > 0;
+    return this.count > 0;
   }
 
   @computed("count")

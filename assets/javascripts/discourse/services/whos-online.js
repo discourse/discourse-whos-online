@@ -8,7 +8,7 @@ export default class WhosOnlineService extends Service {
   @service appEvents;
   @readOnly("channel.users") users;
   @readOnly("channel.count") count;
-  @readOnly("channel.count_only") count_only;
+  @readOnly("channel.countOnly") countOnly;
 
   init() {
     super.init(...arguments);
@@ -51,6 +51,6 @@ export default class WhosOnlineService extends Service {
   }
 
   isUserOnline(id) {
-    return !!this.channel?.users?.find((u) => u.id === id);
+    return !!this.channel?.users?.findBy("id", id);
   }
 }

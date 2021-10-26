@@ -7,6 +7,11 @@ const PLUGIN_ID = "whos-online";
 export default apiInitializer("0.8", (api) => {
   const siteSettings = api.container.lookup("site-settings:main");
 
+  const indicatorType = siteSettings.whos_online_avatar_indicator;
+  if (indicatorType === "none") {
+    return;
+  }
+
   if (
     !(
       siteSettings.whos_online_display_public ||
@@ -14,11 +19,6 @@ export default apiInitializer("0.8", (api) => {
         siteSettings.whos_online_display_min_trust_level
     )
   ) {
-    return;
-  }
-
-  const indicatorType = siteSettings.whos_online_avatar_indicator;
-  if (indicatorType === "none") {
     return;
   }
 
@@ -100,28 +100,28 @@ export default apiInitializer("0.8", (api) => {
     pluginId: PLUGIN_ID,
     didInsertElement() {
       this._super();
-      this._whosOnlineCallback = (changedUserIds) => {
-        changedUserIds.forEach((id) => {
-          let postIds = this.get("attrs")
-            .posts.value.posts.filter(({ user_id }) => {
-              return user_id === id;
-            })
-            .map((post) => post.id);
-          postIds.forEach((postId) => {
-            this.dirtyKeys.keyDirty(`post-${postId}`);
-            this.dirtyKeys.keyDirty(`post-${postId}-avatar-${id}`, {
-              onRefresh: "updateOnline",
-            });
-          });
-        });
-        this.queueRerender();
-      };
-
-      this.appEvents.on("whosonline:changed", this._whosOnlineCallback);
+      this.appEvents.on("whosonline:changed", this, this._whosOnlineCallback);
     },
 
     willDestroyElement() {
-      this.appEvents.off("whosonline:changed", this._whosOnlineCallback);
+      this.appEvents.off("whosonline:changed", this, this._whosOnlineCallback);
+    },
+
+    _whosOnlineCallback(changedUserIds) {
+      changedUserIds.forEach((id) => {
+        let postIds = this.attrs.posts.value.posts
+          .filter(({ user_id }) => {
+            return user_id === id;
+          })
+          .map((post) => post.id);
+        postIds.forEach((postId) => {
+          this.dirtyKeys.keyDirty(`post-${postId}`);
+          this.dirtyKeys.keyDirty(`post-${postId}-avatar-${id}`, {
+            onRefresh: "updateOnline",
+          });
+        });
+      });
+      this.queueRerender();
     },
   });
 
