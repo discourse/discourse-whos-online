@@ -37,6 +37,12 @@ export default class WhosOnlineService extends Service {
 
   @computed
   get enabled() {
+    const anonAndLoginRequired =
+      !this.currentUser && this.siteSettings.login_required;
+    if (anonAndLoginRequired) {
+      return false;
+    }
+
     return (
       this.siteSettings.whos_online_display_public ||
       this.currentUser?.trust_level >=
