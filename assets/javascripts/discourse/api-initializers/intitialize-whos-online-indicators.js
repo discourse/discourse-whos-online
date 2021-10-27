@@ -109,7 +109,7 @@ export default apiInitializer("0.8", (api) => {
 
     _whosOnlineCallback(changedUserIds) {
       changedUserIds.forEach((id) => {
-        let postIds = this.attrs.posts.value.posts
+        let postIds = this.attrs.posts.value
           .filter(({ user_id }) => {
             return user_id === id;
           })
