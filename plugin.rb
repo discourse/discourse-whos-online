@@ -1,133 +1,50 @@
 # frozen_string_literal: true
 
 # name: discourse-whos-online
-# about: Who's online widget
-# version: 1.0
+# about: Display a list of online users at the top of the screen
+# version: 2.0
 # authors: David Taylor
 # url: https://github.com/discourse/discourse-whos-online
+# transpile_js: true
 
 enabled_site_setting :whos_online_enabled
 
 PLUGIN_NAME ||= 'discourse_whos_online'.freeze
+CHANNEL_NAME ||= "/whos-online/online"
 
 register_asset 'stylesheets/whos_online.scss'
 
 after_initialize do
-  module ::DiscourseWhosOnline
-    class Engine < ::Rails::Engine
-      engine_name PLUGIN_NAME
-      isolate_namespace DiscourseWhosOnline
-    end
-  end
-
-  module ::DiscourseWhosOnline::OnlineManager
-
-    def self.redis_key
-      'whosonline_users'
-    end
-
-    # return true if a key was added
-    def self.add(user_id)
-      res = Discourse.redis.hset(redis_key, user_id, Time.zone.now)
-      return res > 0 if res.is_a? Integer # Redis driver started returning an integer following https://github.com/redis/redis-rb/commit/ad7191f3a1ff8170bac6f61555ec8cf67fca4047
-      res
-    end
-
-    # return true if a key was deleted
-    def self.remove(user_id)
-      Discourse.redis.hdel(redis_key, user_id) > 0
-    end
-
-    def self.get_users
-      user_ids = Discourse.redis.hkeys(redis_key).map(&:to_i)
-      User.where(id: user_ids)
-    end
-
-    def self.get_serialized_users
-      get_users.map { |user| BasicUserSerializer.new(user, root: false) }
-    end
-
-    def self.cleanup
-      going_offline_ids = []
-
-      # Delete out of date entries
-      hash = Discourse.redis.hgetall(redis_key)
-      hash.each do |user_id, time|
-        if Time.zone.now - Time.parse(time) >= SiteSetting.whos_online_active_timeago.minutes
-          going_offline_ids << user_id.to_i if remove(user_id)
-        end
+  register_presence_channel_prefix("whos-online") do |channel_name|
+    if channel_name == "/whos-online/online"
+      config = PresenceChannel::Config.new(timeout: SiteSetting.whos_online_active_timeago * 60)
+      if SiteSetting.whos_online_display_public
+        config.public = true
+      else
+        config.allowed_group_ids = [::Group::AUTO_GROUPS[:trust_level_0]]
       end
-
-      going_offline_ids
-    end
-
-  end
-
-  require_dependency 'application_controller'
-
-  class DiscourseWhosOnline::WhosOnlineController < ::ApplicationController
-    requires_plugin PLUGIN_NAME
-
-    def on_request
-      render json: { users: ::DiscourseWhosOnline::OnlineManager.get_serialized_users,
-                     messagebus_id: MessageBus.last_id('/whos-online') }
+      config.count_only = SiteSetting.whos_online_count_only
+      config
     end
   end
 
-  DiscourseWhosOnline::Engine.routes.draw do
-    get '/get' => 'whos_online#on_request'
-  end
-
-  ::Discourse::Application.routes.append do
-    mount ::DiscourseWhosOnline::Engine, at: '/whosonline'
-  end
-
-  add_to_serializer(:site, :users_online) do
-    { users: ::DiscourseWhosOnline::OnlineManager.get_serialized_users,
-      messagebus_id: MessageBus.last_id('/whos-online') }
-  end
-
-  # When user seen, update the redis data
   on(:user_seen) do |user|
     hidden = false
     hidden ||= user.user_option.hide_profile_and_presence if defined? user.user_option.hide_profile_and_presence
     hidden ||= user.id < 0
     next if hidden
-
-    was_offline = ::DiscourseWhosOnline::OnlineManager.add(user.id)
-
-    if was_offline
-      message = {
-        message_type: 'going_online',
-        user: BasicUserSerializer.new(user, root: false)
-      }
-
-      MessageBus.publish('/whos-online', message.as_json)
-    end
+    PresenceChannel.new(CHANNEL_NAME).present(user_id: user.id, client_id: 'seen')
+  rescue PresenceChannel::InvalidAccess
   end
 
-  module ::Jobs
-
-    # This clears up users who have now moved offline
-    class WhosOnlineGoingOffline < ::Jobs::Scheduled
-      every 1.minutes
-
-      def execute(args)
-        return if !SiteSetting.whos_online_enabled?
-
-        going_offline_ids = ::DiscourseWhosOnline::OnlineManager.cleanup
-
-        if going_offline_ids.size > 0
-          message = {
-            message_type: 'going_offline',
-            users: going_offline_ids
-          }
-
-          MessageBus.publish('/whos-online', message.as_json)
-        end
-      end
-    end
-
+  add_to_serializer(:site, :whos_online_state, false) do
+    @whos_online_channel ||= PresenceChannel.new(CHANNEL_NAME)
+    PresenceChannelStateSerializer.new(@whos_online_channel.state, root: nil)
   end
 
+  add_to_serializer(:site, :include_whos_online_state?, false) do
+    next false unless SiteSetting.whos_online_enabled
+    @whos_online_channel ||= PresenceChannel.new(CHANNEL_NAME)
+    @whos_online_channel.can_view?(user_id: scope.user&.id)
+  end
 end
