@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 de:
+  js:
+    whos_online:
+      title:
+        one: "Online (%{count}):"
+        other: "Online (%{count}):"
+      tooltip:
+        one: "Benutzer, die in der letzten %{count} Minute gesehen wurden"
+        other: "Benutzer, die in den letzten %{count} Minuten gesehn wurden"
+      no_users: "Derzeit sind keine Benutzer online"
+      count_only:
+        one: "%{count} Benutzer online"
+        other: "%{count} Benutzer online"

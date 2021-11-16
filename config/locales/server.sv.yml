@@ -16,3 +16,4 @@ sv:
     whos_online_display_min_trust_level: "Lägsta förtroendenivå som krävs för att se vem som är online"
     whos_online_avatar_indicator: "Visa en indikator på användares avatarer som beskriver deras online-status"
     whos_online_avatar_indicator_topic_lists: "Visa online-indikatorer i ämneslistor"
+    whos_online_count_only: "Visa bara antalet. Avslöja inte användaridentiteter online. (mer effektiv)"
