@@ -7,6 +7,4 @@
 tr_TR:
   js:
     whos_online:
-      title: "Çevrimiçi ({{count}}):"
-      tooltip: "Son 5 dakika önce aktif olan kullanıcılar"
       no_users: "Şu anda çevrimiçi kullanıcı bulunmamakta"

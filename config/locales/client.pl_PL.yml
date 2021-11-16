@@ -7,6 +7,4 @@
 pl_PL:
   js:
     whos_online:
-      title: "Online ({{count}}):"
-      tooltip: "Użytkownicy widziani przez ostatnie 5 minut"
       no_users: "Żaden użytkownik nie jest online"

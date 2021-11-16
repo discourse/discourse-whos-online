@@ -16,3 +16,4 @@ he:
     whos_online_display_min_trust_level: "דרגת האמון המזערית הנדרשת כדי לצפות מי מקוון"
     whos_online_avatar_indicator: "הצגת מחוון על התמונה הייצוגית של המשתמש שמתאר את מצב החיבור של המשתמש"
     whos_online_avatar_indicator_topic_lists: "הצגת מחווני מצב מקוון ברשימות הנושאים"
+    whos_online_count_only: "להציג רק את המספר. לא לחשוף את זהות המשתמשים המקוונים. (יותר יעיל)"
