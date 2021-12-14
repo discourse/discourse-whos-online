@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 zh_CN:
+  site_settings:
+    whos_online_enabled: "启用 Who's Online 插件"
+    whos_online_active_timeago: "自上次互动以来，用户被视为 “在线” 的最大分钟数"
+    whos_online_collapse_threshold: "折叠头像前需要的用户数"
+    whos_online_maximum_display: "要显示的最大用户数"
+    whos_online_minimum_display: "要显示的最小用户数"
+    whos_online_hide_below_minimum_display: "如果用户数低于 minimum_display，则完全隐藏插件"
+    whos_online_display_public: "向游客展示 whos-online（无需登录）"
+    whos_online_display_min_trust_level: "查看 whos-online 所需的最低信任级别"
+    whos_online_avatar_indicator: "在用户头像上显示他们的在线状态"
+    whos_online_avatar_indicator_topic_lists: "在主题列表中显示谁在线"
+    whos_online_count_only: "只显示计数，不显示在线用户身份。(更有效率)"
