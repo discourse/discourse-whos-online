@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 zh_CN:
+  js:
+    whos_online:
+      title:
+        other: "在线 (%{count}):"
+      tooltip:
+        other: "过去 %{count} 分钟内活跃的用户"
+      no_users: "当前没有用户在线"
+      count_only:
+        other: "%{count} 位在线用户"
