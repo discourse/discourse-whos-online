@@ -7,4 +7,13 @@
 es:
   js:
     whos_online:
+      title:
+        one: "En línea (%{count}):"
+        other: "En línea (%{count}):"
+      tooltip:
+        one: "Usuarios vistos en el último %{count} minuto"
+        other: "Usuarios vistos en los últimos %{count} minutos"
       no_users: "No hay usuarios conectados actualmente"
+      count_only:
+        one: "%{count} usuario en línea"
+        other: "%{count} usuarios en línea"

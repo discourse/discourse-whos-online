@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 ja:
+  site_settings:
+    whos_online_enabled: "Who's Online プラグインを有効にする"
+    whos_online_active_timeago: "ユーザーが「オンライン」とみなされる最後のインタラクションからの最大分数"
+    whos_online_collapse_threshold: "アバターのオーバーラップに必要なユーザー数"
+    whos_online_maximum_display: "表示するユーザーの最大数"
+    whos_online_minimum_display: "表示するユーザーの最小数"
+    whos_online_hide_below_minimum_display: "ユーザー数が minimum_display を下回る場合、ウィジェットを完全に非表示にする"
+    whos_online_display_public: "whos-online を公開表示する（サインイン不要）"
+    whos_online_display_min_trust_level: "whos-online を表示するために必要な最低信頼レベル"
+    whos_online_avatar_indicator: "オンラインステータスを説明するインジケーターをユーザーアバターに表示する"
+    whos_online_avatar_indicator_topic_lists: "トピックリストにオンラインインジケーターを表示する"
+    whos_online_count_only: "数のみを表示する。オンラインユーザーの ID は公開しない。（より効率的）"

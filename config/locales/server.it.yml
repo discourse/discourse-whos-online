@@ -6,13 +6,14 @@
 
 it:
   site_settings:
-    whos_online_enabled: "Abilita Who's Online Plugin"
-    whos_online_active_timeago: "Il numero massimo di minuti dall'ultima interazione per cui un utente è considerato 'in linea'"
-    whos_online_collapse_threshold: "Il numero di utenti richiesto prima che gli avatar vengano sovrapposti"
+    whos_online_enabled: "Abilita plugin Who's Online"
+    whos_online_active_timeago: "Il numero massimo di minuti dall'ultima interazione per cui un utente è considerato 'online'"
+    whos_online_collapse_threshold: "Il numero di utenti richiesto prima che gli avatar vengano duplicati"
     whos_online_maximum_display: "Numero massimo di utenti da mostrare"
     whos_online_minimum_display: "Numero minimo di utenti da mostrare"
-    whos_online_hide_below_minimum_display: "Nascondi completamente il widget se il numero di utenti è inferiore al minimum_display"
+    whos_online_hide_below_minimum_display: "Nascondi completamente il widget se il numero di utenti è inferiore a minimum_display"
     whos_online_display_public: "Mostra chi è online al pubblico (nessun accesso richiesto)"
-    whos_online_display_min_trust_level: "Livello di esperienza minimo richiesto per vedere chi è online"
-    whos_online_avatar_indicator: "Mostra un indicatore sugli avatar che descrive il loro stato online"
-    whos_online_avatar_indicator_topic_lists: "Mostra gli indicatori online nelle liste degli argomenti"
+    whos_online_display_min_trust_level: "Livello di attendibilità minimo richiesto per vedere chi è online"
+    whos_online_avatar_indicator: "Mostra un indicatore sugli avatar degli utenti che descrive il loro stato online"
+    whos_online_avatar_indicator_topic_lists: "Mostra gli indicatori online negli elenchi degli argomenti"
+    whos_online_count_only: "Mostra solo il conteggio. Non indicare le identità degli utenti online. (più efficiente)"

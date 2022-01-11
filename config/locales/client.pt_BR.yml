@@ -7,4 +7,13 @@
 pt_BR:
   js:
     whos_online:
-      no_users: "Nenhum usuário online no momento"
+      title:
+        one: "On-line (%{count}):"
+        other: "On-line (%{count}):"
+      tooltip:
+        one: "Usuários(as) vistos(as) no último %{count} minuto"
+        other: "Usuários(as) vistos(as) nos últimos %{count} minutos"
+      no_users: "Nenhum usuário on-line no momento"
+      count_only:
+        one: "%{count} usuário(a) on-line"
+        other: "%{count} usuários(as) on-line"

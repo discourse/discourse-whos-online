@@ -6,13 +6,14 @@
 
 fr:
   site_settings:
-    whos_online_enabled: "Activer le plugin Who's Online"
-    whos_online_active_timeago: "Le nombre maximal de minutes depuis la dernière interaction pour qu'un utilisateur soit considéré comme 'en ligne'"
-    whos_online_collapse_threshold: "Le nombre d'utilisateurs requis avant que les avatars ne se chevauchent"
+    whos_online_enabled: "Activer l'extension Who's Online"
+    whos_online_active_timeago: "Le nombre maximal de minutes depuis la dernière interaction pour qu'un utilisateur soit considéré comme « en ligne »"
+    whos_online_collapse_threshold: "Le nombre d'utilisateurs requis avant que les avatars se chevauchent"
     whos_online_maximum_display: "Le nombre maximal d'utilisateurs à afficher"
     whos_online_minimum_display: "Le nombre minimal d'utilisateurs à afficher"
-    whos_online_hide_below_minimum_display: "Masquer le widget si le nombre d'utilisateur est inférieur au nombre minimal d'utilisateurs à afficher"
-    whos_online_display_public: "Afficher les utilisateurs en ligne au public (personnes non inscrites)"
-    whos_online_display_min_trust_level: "Niveau de confiance requis pour voir les utilisateurs en ligne"
-    whos_online_avatar_indicator: "Type d'indicateur de statut en ligne sur l'avatar de l'utilisateur"
-    whos_online_avatar_indicator_topic_lists: "Afficher le statut en ligne sur les avatars dans la liste des sujets"
+    whos_online_hide_below_minimum_display: "Cacher complètement le widget si le nombre d'utilisateurs est inférieur à minimum_display"
+    whos_online_display_public: "Afficher whos-online au public (aucune connexion requise)"
+    whos_online_display_min_trust_level: "Le niveau de confiance minimal requis pour voir whos-online"
+    whos_online_avatar_indicator: "Afficher un indicateur sur les avatars des utilisateurs décrivant leurs statuts en ligne"
+    whos_online_avatar_indicator_topic_lists: "Afficher les indicateurs de connexion dans les listes de sujets"
+    whos_online_count_only: "Afficher uniquement le nombre. Ne pas révéler les identités des utilisateurs en ligne. (plus efficace)"
