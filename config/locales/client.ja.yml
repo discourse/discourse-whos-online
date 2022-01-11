@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 ja:
+  js:
+    whos_online:
+      title:
+        other: "オンライン（%{count}）:"
+      tooltip:
+        other: "%{count} 分以内にアクセスしたユーザー"
+      no_users: "現在オンラインのユーザーはいません"
+      count_only:
+        other: "%{count} 人のユーザーがオンライン"

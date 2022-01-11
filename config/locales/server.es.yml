@@ -7,7 +7,13 @@
 es:
   site_settings:
     whos_online_enabled: "Activar el plugin Who's Online"
-    whos_online_active_timeago: "El máximo número de minutos desde la última interacción para que un usuario se considere 'conectado'"
+    whos_online_active_timeago: "El máximo número de minutos desde la última interacción para que un usuario se considere «conectado»"
     whos_online_collapse_threshold: "El número de usuarios requeridos a partir de los cuales los avatares se solapan"
-    whos_online_maximum_display: "Máximo número de usuarios para mostrar"
-    whos_online_minimum_display: "Mínimo número de usuarios para mostrar"
+    whos_online_maximum_display: "El número máximo de usuarios que se van a mostrar"
+    whos_online_minimum_display: "El número mínimo de usuarios que se van a mostrar"
+    whos_online_hide_below_minimum_display: "Ocultar completamente el widget si el número de usuarios está por debajo de minimum_display"
+    whos_online_display_public: "Mostrar quién está en línea al público (no es necesario iniciar sesión)"
+    whos_online_display_min_trust_level: "El nivel de confianza mínimo requerido para ver quién está en línea"
+    whos_online_avatar_indicator: "Mostrar un indicador en los avatares de los usuarios que describa su estado en línea"
+    whos_online_avatar_indicator_topic_lists: "Mostrar indicadores en línea en las listas de temas"
+    whos_online_count_only: "Mostrar solo el contador. No revelar identidades de usuario en línea. (más eficiente)"

@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 ar:
+  site_settings:
+    whos_online_enabled: "تفعيل المكوِّن الإضافي Who's Online"
+    whos_online_active_timeago: "أقصى عدد من الدقائق بعد آخر تفاعل يتم اعتبار المستخدم خلاله \"متصلًا\""
+    whos_online_collapse_threshold: "عدد المستخدمين المطلوب قبل تداخل الصور الرمزية"
+    whos_online_maximum_display: "أقصى عدد من المستخدمين سيتم عرضه"
+    whos_online_minimum_display: "أدنى عدد من المستخدمين سيتم عرضه"
+    whos_online_hide_below_minimum_display: "إخفاء عنصر واجهة المستخدم تمامًا إذا كان عدد المستخدمين أقل من minimum_display"
+    whos_online_display_public: "عرض المستخدمين المتصلين للعامة (تسجيل الدخول غير مطلوب)"
+    whos_online_display_min_trust_level: "أدنى مستوى ثقة مطلوب لعرض المستخدمين المتصلين"
+    whos_online_avatar_indicator: "عرض مؤشر على الصور الرمزية للمستخدمين لوصف حالة اتصالهم"
+    whos_online_avatar_indicator_topic_lists: "عرض مؤشرات حالة الاتصال في قوائم الموضوعات"
+    whos_online_count_only: "عرض العدد فقط مع عدم الكشف عن هويات المستخدمين المتصلين (أكثر كفاءة)"
