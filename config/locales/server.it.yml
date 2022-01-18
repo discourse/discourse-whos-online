@@ -8,7 +8,7 @@ it:
   site_settings:
     whos_online_enabled: "Abilita plugin Who's Online"
     whos_online_active_timeago: "Il numero massimo di minuti dall'ultima interazione per cui un utente è considerato 'online'"
-    whos_online_collapse_threshold: "Il numero di utenti richiesto prima che gli avatar vengano duplicati"
+    whos_online_collapse_threshold: "Il numero di utenti richiesto prima che gli avatar vengano sovrapposti"
     whos_online_maximum_display: "Numero massimo di utenti da mostrare"
     whos_online_minimum_display: "Numero minimo di utenti da mostrare"
     whos_online_hide_below_minimum_display: "Nascondi completamente il widget se il numero di utenti è inferiore a minimum_display"
