@@ -7,4 +7,13 @@
 fi:
   js:
     whos_online:
-      no_users: "Kukaan ei ole paikalla juuri nyt"
+      title:
+        one: "Online-tilassa (%{count}):"
+        other: "Online-tilassa (%{count}):"
+      tooltip:
+        one: "Viimeisen %{count} minuutin aikana paikalla"
+        other: "Viimeisten %{count} minuutin aikana paikalla"
+      no_users: "Kukaan ei ole online-tilassa juuri nyt"
+      count_only:
+        one: "%{count} käyttäjä online-tilassa"
+        other: "%{count} käyttäjää online-tilassa"
