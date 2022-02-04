@@ -124,6 +124,7 @@ html.whos-online-flair {
     left: 1px;
     height: 10px;
     width: 10px;
+    z-index: 1;
   }
 
   &.mobile-view .topic-avatar.user-online::before {
