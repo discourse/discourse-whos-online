@@ -16,3 +16,4 @@ pl_PL:
     whos_online_display_min_trust_level: "Minimalny poziom zaufania wymagany, aby zobaczyć, kto jest online"
     whos_online_avatar_indicator: "Pokaż wskaźnik na awatarach użytkowników, który pokazuje ich status online"
     whos_online_avatar_indicator_topic_lists: "Pokaż status online użytkowników w listach tematów"
+    whos_online_count_only: "Pokaż tylko liczbę. Nie ujawniaj tożsamości użytkowników online. (bardziej wydajne)"
