@@ -6,6 +6,4 @@ A Discourse plugin which displays a list of users currently active on the site:
 
 The plugin uses the MessageBus to keep up-to-date, using messages from a Sidekiq job run every 1 minute on the server.
 
-### [How to Install a Plugin](https://meta.discourse.org/t/install-a-plugin/19157)
-
-### [More Information / Discussion](https://meta.discourse.org/t/whos-online-plugin/52345)
+For more information, please see: https://meta.discourse.org/t/whos-online-plugin/52345
