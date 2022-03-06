@@ -1,4 +1,8 @@
-import { acceptance, count } from "discourse/tests/helpers/qunit-helpers";
+import {
+  acceptance,
+  count,
+  exists,
+} from "discourse/tests/helpers/qunit-helpers";
 import { visit } from "@ember/test-helpers";
 import { test } from "qunit";
 import { joinChannel } from "discourse/tests/helpers/presence-pretender";
