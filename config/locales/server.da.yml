@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 da:
+  site_settings:
+    whos_online_enabled: "Aktiver Hvem Er Online Plugin"
+    whos_online_active_timeago: "Det maksimale antal minutter siden sidste interaktion, som en bruger betragtes som 'online'"
+    whos_online_collapse_threshold: "Antallet af brugere, der kræves, før avatarerne overlapper hinanden"
+    whos_online_maximum_display: "Det maksimale antal brugere der skal vises"
+    whos_online_minimum_display: "Det mindste antal brugere der skal vises"
+    whos_online_hide_below_minimum_display: "Skjul tilføjelsen fuldstændigt, hvis antallet af brugere er under minimum_display"
+    whos_online_display_public: "Vis hvem der er online til offentligheden (ingen login påkrævet)"
+    whos_online_display_min_trust_level: "Det mindste tillidsniveau, der kræves for at se, hvem der er online"
+    whos_online_avatar_indicator: "Vis en indikator på brugerens avatarer, der beskriver deres online status"
+    whos_online_avatar_indicator_topic_lists: "Vis online indikatorer i emnelister"
+    whos_online_count_only: "Vis kun optællingen. Afslør ikke online brugeridentiteter. (mere effektivt)"
