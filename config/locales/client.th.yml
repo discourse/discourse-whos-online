@@ -5,3 +5,10 @@
 # https://translate.discourse.org/
 
 th:
+  js:
+    whos_online:
+      title:
+        other: "ออนไลน์ (%{count}):"
+      no_users: "ไม่มีผู้ใช้ออนไลน์อยู่ในขณะนี้"
+      count_only:
+        other: "ผู้ใช้ %{count} คน ออนไลน์"
