@@ -5,3 +5,6 @@
 # https://translate.discourse.org/
 
 th:
+  site_settings:
+    whos_online_maximum_display: "จำนวนผู้ใช้สูงสุดที่จะแสดง"
+    whos_online_minimum_display: "จำนวนผู้ใช้ขั้นต่ำที่จะแสดง"
