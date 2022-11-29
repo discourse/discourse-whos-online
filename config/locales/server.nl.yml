@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 nl:
+  site_settings:
+    whos_online_enabled: "Who's Online-plug-in inschakelen"
+    whos_online_active_timeago: "Het maximale aantal minuten sinds de laatste interactie dat een gebruiker als 'online' wordt beschouwd"
+    whos_online_collapse_threshold: "Het vereiste aantal gebruikers voordat avatars overlappen"
+    whos_online_maximum_display: "Het maximale aantal gebruikers om weer te geven"
+    whos_online_minimum_display: "Het minimale aantal gebruikers om weer te geven"
+    whos_online_hide_below_minimum_display: "Verberg de widget volledig als het aantal gebruikers lager is dan minimum_display"
+    whos_online_display_public: "Who's Online tonen aan het publiek (aanmelden niet nodig)"
+    whos_online_display_min_trust_level: "Het minimale vertrouwensniveau dat nodig is Who's Online te zien"
+    whos_online_avatar_indicator: "Indicator weergegeven gebruikersavatars die hun online status beschrijft"
+    whos_online_avatar_indicator_topic_lists: "Online-indicators weergeven in topicslijsten"
+    whos_online_count_only: "Toon alleen het aantal. Geef geen identiteiten van online gebruikers weer. (Efficiënter)"
