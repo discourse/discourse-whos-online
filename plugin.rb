@@ -9,10 +9,10 @@
 
 enabled_site_setting :whos_online_enabled
 
-PLUGIN_NAME ||= 'discourse_whos_online'.freeze
+PLUGIN_NAME ||= "discourse_whos_online".freeze
 CHANNEL_NAME ||= "/whos-online/online"
 
-register_asset 'stylesheets/whos_online.scss'
+register_asset "stylesheets/whos_online.scss"
 
 after_initialize do
   register_presence_channel_prefix("whos-online") do |channel_name|
@@ -30,10 +30,12 @@ after_initialize do
 
   on(:user_seen) do |user|
     hidden = false
-    hidden ||= user.user_option.hide_profile_and_presence if defined? user.user_option.hide_profile_and_presence
+    hidden ||= user.user_option.hide_profile_and_presence if defined?(
+      user.user_option.hide_profile_and_presence
+    )
     hidden ||= user.id < 0
     next if hidden
-    PresenceChannel.new(CHANNEL_NAME).present(user_id: user.id, client_id: 'seen')
+    PresenceChannel.new(CHANNEL_NAME).present(user_id: user.id, client_id: "seen")
   rescue PresenceChannel::InvalidAccess
   end
 
