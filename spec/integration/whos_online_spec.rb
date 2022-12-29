@@ -8,7 +8,7 @@ describe "whos online plugin", type: :request do
     PresenceChannel.clear_all!
   end
 
-  let(:c) { PresenceChannel.new('/whos-online/online') }
+  let(:c) { PresenceChannel.new("/whos-online/online") }
   let(:user) { Fabricate(:user).tap { |u| Group.refresh_automatic_group!(:trust_level_0) } }
 
   it "registers a presence channel" do
@@ -70,5 +70,4 @@ describe "whos online plugin", type: :request do
     get "/latest.json"
     expect(c.user_ids).to contain_exactly(user.id)
   end
-
 end
