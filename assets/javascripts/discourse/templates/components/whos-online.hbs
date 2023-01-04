@@ -1,15 +1,20 @@
-{{#if shouldDisplay }}
+{{#if shouldDisplay}}
   <div id="whos-online" class={{if isLong "collapsed"}}>
-    <span title={{i18n "whos_online.tooltip" count=siteSettings.whos_online_active_timeago}}>
-      {{#if hasUsers }}
+    <span
+      title={{i18n
+        "whos_online.tooltip"
+        count=siteSettings.whos_online_active_timeago
+      }}
+    >
+      {{#if hasUsers}}
         {{i18n "whos_online.title" count=count}}
-      {{else if hasCount }}
+      {{else if hasCount}}
         {{i18n "whos_online.count_only" count=count}}
       {{else}}
         {{i18n "whos_online.no_users"}}
       {{/if}}
     </span>
-    {{#if hasUsers }}
+    {{#if hasUsers}}
       {{#each users as |user|}}
         {{whos-online-avatar user=user}}
       {{/each}}
