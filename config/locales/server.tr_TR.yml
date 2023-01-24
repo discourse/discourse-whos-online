@@ -6,14 +6,14 @@
 
 tr_TR:
   site_settings:
-    whos_online_enabled: "Who's Online (Kimler Çevrimiçi) eklentisini aktif et"
-    whos_online_active_timeago: "Bir kullanıcının 'çevrimiçi' olarak kabul edildiği son etkileşimden sonraki maksimum dakika sayısı"
+    whos_online_enabled: "Who's Online Eklentisini Etkinleştirin"
+    whos_online_active_timeago: "Bir kullanıcının \"çevrimiçi\" olarak kabul edildiği son etkileşimden sonraki maksimum dakika sayısı"
     whos_online_collapse_threshold: "Avatarlar üst üste gelmeden önceki gereken sayı"
-    whos_online_maximum_display: "Görüntülenecek azami kullanıcı sayısı"
-    whos_online_minimum_display: "Görüntülenecek minimum kullanıcı sayısı"
+    whos_online_maximum_display: "Gösterilecek maksimum kullanıcı sayısı"
+    whos_online_minimum_display: "Gösterilecek minimum kullanıcı sayısı"
     whos_online_hide_below_minimum_display: "Kullanıcı sayısı minimum_display'in altındaysa widget'ı tamamen gizleyin"
-    whos_online_display_public: "Çevrimiçileri gösterin. (Oturum açma gerekmiyor)"
-    whos_online_display_min_trust_level: "Gösterilmek için gereken güven seviyesi"
+    whos_online_display_public: "Çevrimiçi kişileri herkese gösterin (oturum açmak gerekmez)"
+    whos_online_display_min_trust_level: "Kimin çevrimiçi olduğunu görmek için gereken minimum güven seviyesi"
     whos_online_avatar_indicator: "Kullanıcı avatarlarında çevrimiçi durumlarını açıklayan bir gösterge gösterin"
-    whos_online_avatar_indicator_topic_lists: "Konu listelerinde çevrimiçi göstergeleri göster"
+    whos_online_avatar_indicator_topic_lists: "Konu listelerinde çevrimiçi göstergeleri gösterin"
     whos_online_count_only: "Sadece sayıyı gösterin. Çevrimiçi kullanıcı kimliklerini göstermeyin. (daha verimli)"
