@@ -2,8 +2,8 @@
 
 A Discourse plugin which displays a list of users currently active on the site:
 
-<img src="https://d11a6trkgmumsb.cloudfront.net/original/3X/a/f/af9186cf7b6b694a8e00018fc67bce7f9f4e3660.gif"/>
-
+![online](https://user-images.githubusercontent.com/5862206/214549601-9f156a86-7299-4616-8c8a-81925efe70f2.gif)
+Ensure README images are pointing to discourse/gh-owned repositories
 The plugin uses the MessageBus to keep up-to-date, using messages from a Sidekiq job run every 1 minute on the server.
 
 For more information, please see: https://meta.discourse.org/t/whos-online-plugin/52345
