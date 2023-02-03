@@ -5,7 +5,7 @@ en:
         one: "Online (%{count}):"
         other: "Online (%{count}):"
       tooltip:
-        one: "Users seen in the last %{count} minute"
+        one: "Users seen in the last minute"
         other: "Users seen in the last %{count} minutes"
       no_users: "No users currently online"
       count_only:
