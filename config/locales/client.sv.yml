@@ -10,9 +10,6 @@ sv:
       title:
         one: "Online (%{count}):"
         other: "Online (%{count}):"
-      tooltip:
-        one: "Användare som setts senaste %{count} minuten"
-        other: "Användare som setts under de senaste %{count} minuterna"
       no_users: "Inga användare online just nu"
       count_only:
         one: "%{count} användare online"

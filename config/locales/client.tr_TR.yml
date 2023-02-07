@@ -10,9 +10,6 @@ tr_TR:
       title:
         one: "Çevrimiçi (%{count}):"
         other: "Çevrimiçi (%{count}):"
-      tooltip:
-        one: "Son %{count} dakikada görülen kullanıcılar"
-        other: "Son %{count} dakikada görülen kullanıcılar"
       no_users: "Şu anda çevrimiçi kullanıcı bulunmamakta"
       count_only:
         one: "%{count} kullanıcı çevrimiçi"
