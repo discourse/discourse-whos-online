@@ -12,11 +12,6 @@ pl_PL:
         few: "Online (%{count}):"
         many: "Online (%{count}):"
         other: "Online (%{count}):"
-      tooltip:
-        one: "Użytkownicy widziani w ciągu ostatniej %{count} minuty"
-        few: "Użytkownicy widziani w ciągu ostatnich %{count} minut"
-        many: "Użytkownicy widziani w ciągu ostatnich %{count} minut"
-        other: "Użytkownicy widziani w ciągu ostatnich %{count} minut"
       no_users: "Żaden użytkownik nie jest online"
       count_only:
         one: "%{count} użytkownik online"
