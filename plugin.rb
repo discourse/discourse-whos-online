@@ -39,14 +39,15 @@ after_initialize do
   rescue PresenceChannel::InvalidAccess
   end
 
-  add_to_serializer(:site, :whos_online_state, false) do
+  add_to_serializer(
+    :site,
+    :whos_online_state,
+    include_condition: -> do
+      @whos_online_channel ||= PresenceChannel.new(CHANNEL_NAME)
+      @whos_online_channel.can_view?(user_id: scope.user&.id)
+    end,
+  ) do
     @whos_online_channel ||= PresenceChannel.new(CHANNEL_NAME)
     PresenceChannelStateSerializer.new(@whos_online_channel.state, root: nil)
-  end
-
-  add_to_serializer(:site, :include_whos_online_state?, false) do
-    next false unless SiteSetting.whos_online_enabled
-    @whos_online_channel ||= PresenceChannel.new(CHANNEL_NAME)
-    @whos_online_channel.can_view?(user_id: scope.user&.id)
   end
 end
