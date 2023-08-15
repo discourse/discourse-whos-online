@@ -10,6 +10,9 @@ fr:
       title:
         one: "En ligne (%{count}) :"
         other: "En ligne (%{count}) :"
+      tooltip:
+        one: "Utilisateurs vus au cours de la dernière minute"
+        other: "Utilisateurs vus au cours des %{count} dernières minutes"
       no_users: "Aucun utilisateur en ligne actuellement"
       count_only:
         one: "%{count} utilisateur en ligne"

@@ -10,6 +10,9 @@ pt_BR:
       title:
         one: "On-line (%{count}):"
         other: "On-line (%{count}):"
+      tooltip:
+        one: "Usuários(as) vistos(as) no último minuto"
+        other: "Usuários(as) vistos(as) nos últimos %{count} minutos"
       no_users: "Nenhum usuário on-line no momento"
       count_only:
         one: "%{count} usuário(a) on-line"

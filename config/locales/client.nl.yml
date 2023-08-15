@@ -10,6 +10,9 @@ nl:
       title:
         one: "Online (%{count}):"
         other: "Online (%{count}):"
+      tooltip:
+        one: "Gebruikers gezien de afgelopen minuut"
+        other: "Gebruikers gezien de afgelopen %{count} minuten"
       no_users: "Geen gebruikers online momenteel"
       count_only:
         one: "%{count} gebruiker online"
