@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 fa_IR:
+  js:
+    whos_online:
+      title:
+        one: "آنلاین (%{count}):"
+        other: "آنلاین (%{count}):"
+      no_users: "هیچ کاربری در حال حاضر آنلاین نیست"
+      count_only:
+        one: "%{count} کاربر آنلاین است"
+        other: "%{count} کاربر آنلاین است"
