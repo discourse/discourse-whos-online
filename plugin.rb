@@ -2,6 +2,7 @@
 
 # name: discourse-whos-online
 # about: Display a list of online users at the top of the screen
+# meta_topic_id: 52345
 # version: 2.0
 # authors: David Taylor
 # url: https://github.com/discourse/discourse-whos-online
