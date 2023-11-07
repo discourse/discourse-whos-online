@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 ro:
+  site_settings:
+    whos_online_enabled: "Activează modulul Cine este conectat"
+    whos_online_active_timeago: "Numărul maxim de minute de la ultima interacțiune în care un utilizator este considerat „conectat”"
+    whos_online_collapse_threshold: "Numărul de utilizatori necesar înainte ca avatarurile să se suprapună"
+    whos_online_maximum_display: "Numărul maxim de utilizatori de afișat"
+    whos_online_minimum_display: "Numărul minim de utilizatori de afișat"
+    whos_online_hide_below_minimum_display: "Ascunde complet piesa dacă numărul de utilizatori este sub minimum_display"
+    whos_online_display_public: "Afișează public cine este conectat (nu este necesară conectarea)"
+    whos_online_display_min_trust_level: "Nivelul minim de încredere necesar pentru a vedea cine este conectat"
+    whos_online_avatar_indicator: "Afișează un indicator pe avatarurile utilizatorilor care descrie starea lor de conectare"
+    whos_online_avatar_indicator_topic_lists: "Afișează indicatorii de conectivitate în listele de subiecte"
+    whos_online_count_only: "Arată doar numărul. Nu dezvăluie identitățile utilizatorilor conectați. (mai eficient)"
