@@ -5,3 +5,18 @@
 # https://translate.discourse.org/
 
 ro:
+  js:
+    whos_online:
+      title:
+        one: "Conectat (%{count}):"
+        few: "Conectați (%{count}):"
+        other: "Conectați (%{count}):"
+      tooltip:
+        one: "Utilizatori văzuți în ultimul minut"
+        few: "Utilizatori văzuți în ultimele %{count} minute"
+        other: "Utilizatori văzuți în ultimele %{count} de minute"
+      no_users: "Niciun utilizator conectat momentan"
+      count_only:
+        one: "%{count} utilizator conectat"
+        few: "%{count} utilizatori conectați"
+        other: "%{count} de utilizatori conectați"
