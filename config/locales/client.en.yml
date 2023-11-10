@@ -1,4 +1,9 @@
 en:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          discourse_whos_online: "Discourse Who's Online"
   js:
     whos_online:
       title:

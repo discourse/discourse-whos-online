@@ -1,4 +1,4 @@
-plugins:
+discourse_whos_online:
   whos_online_enabled:
     default: false
   whos_online_active_timeago:
