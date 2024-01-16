@@ -6,7 +6,6 @@
 # version: 2.0
 # authors: David Taylor
 # url: https://github.com/discourse/discourse-whos-online
-# transpile_js: true
 
 enabled_site_setting :whos_online_enabled
 
