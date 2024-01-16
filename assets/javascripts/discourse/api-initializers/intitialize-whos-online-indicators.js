@@ -1,11 +1,11 @@
-import discourseComputed, { observes } from "discourse-common/utils/decorators";
 import { inject as service } from "@ember/service";
 import { apiInitializer } from "discourse/lib/api";
+import discourseComputed, { observes } from "discourse-common/utils/decorators";
 
 const PLUGIN_ID = "whos-online";
 
 export default apiInitializer("0.8", (api) => {
-  const siteSettings = api.container.lookup("site-settings:main");
+  const siteSettings = api.container.lookup("service:site-settings");
 
   const indicatorType = siteSettings.whos_online_avatar_indicator;
   if (indicatorType === "none") {
@@ -26,6 +26,7 @@ export default apiInitializer("0.8", (api) => {
 
   api.modifyClass("component:user-card-contents", {
     pluginId: PLUGIN_ID,
+
     whosOnline: service(),
     classNameBindings: ["isOnline:user-online"],
 
@@ -37,6 +38,7 @@ export default apiInitializer("0.8", (api) => {
 
   api.modifyClass("route:user", {
     pluginId: PLUGIN_ID,
+
     whosOnline: service(),
 
     async afterModel(model) {
@@ -69,8 +71,10 @@ export default apiInitializer("0.8", (api) => {
   if (siteSettings.whos_online_avatar_indicator_topic_lists) {
     api.modifyClass("component:topic-list-item", {
       pluginId: PLUGIN_ID,
+
       whosOnline: service(),
       classNameBindings: ["isOnline:last-poster-online"],
+
       @discourseComputed(
         "topic.lastPoster.id",
         "topic.lastPosterUser.id",
@@ -83,8 +87,10 @@ export default apiInitializer("0.8", (api) => {
 
     api.modifyClass("component:latest-topic-list-item", {
       pluginId: PLUGIN_ID,
+
       whosOnline: service(),
       classNameBindings: ["isOnline:last-poster-online"],
+
       @discourseComputed(
         "topic.lastPoster.id",
         "topic.lastPosterUser.id",
@@ -98,6 +104,7 @@ export default apiInitializer("0.8", (api) => {
 
   api.modifyClass("component:scrolling-post-stream", {
     pluginId: PLUGIN_ID,
+
     didInsertElement() {
       this._super();
       this.appEvents.on("whosonline:changed", this, this._whosOnlineCallback);

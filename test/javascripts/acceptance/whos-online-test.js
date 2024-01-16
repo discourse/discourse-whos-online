@@ -1,11 +1,11 @@
+import { visit } from "@ember/test-helpers";
+import { test } from "qunit";
+import { joinChannel } from "discourse/tests/helpers/presence-pretender";
 import {
   acceptance,
   count,
   exists,
 } from "discourse/tests/helpers/qunit-helpers";
-import { visit } from "@ember/test-helpers";
-import { test } from "qunit";
-import { joinChannel } from "discourse/tests/helpers/presence-pretender";
 
 acceptance("Discourse Whos Online", function (needs) {
   needs.user();
