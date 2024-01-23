@@ -5,6 +5,11 @@
 # https://translate.discourse.org/
 
 ru:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          discourse_whos_online: "Discourse для Who's Online"
   js:
     whos_online:
       title:
