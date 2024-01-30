@@ -9,7 +9,7 @@ zh_CN:
     admin:
       site_settings:
         categories:
-          discourse_whos_online: "Discourse 在线用户"
+          discourse_whos_online: "Discourse Who's Online"
   js:
     whos_online:
       title:
