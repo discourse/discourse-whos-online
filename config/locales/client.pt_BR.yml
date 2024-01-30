@@ -5,6 +5,11 @@
 # https://translate.discourse.org/
 
 pt_BR:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          discourse_whos_online: "Quem está on-line no Discourse"
   js:
     whos_online:
       title:

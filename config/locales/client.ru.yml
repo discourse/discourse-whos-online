@@ -9,7 +9,7 @@ ru:
     admin:
       site_settings:
         categories:
-          discourse_whos_online: "Discourse для Who's Online"
+          discourse_whos_online: "Плагин Discourse «Кто на сайте»"
   js:
     whos_online:
       title:
