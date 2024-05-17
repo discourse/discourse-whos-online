@@ -9,12 +9,13 @@
 
 enabled_site_setting :whos_online_enabled
 
-PLUGIN_NAME ||= "discourse_whos_online".freeze
-CHANNEL_NAME ||= "/whos-online/online"
-
 register_asset "stylesheets/whos_online.scss"
 
 after_initialize do
+  module ::DiscourseWhosOnline
+    CHANNEL_NAME = "/whos-online/online"
+  end
+
   register_presence_channel_prefix("whos-online") do |channel_name|
     if channel_name == "/whos-online/online"
       config = PresenceChannel::Config.new(timeout: SiteSetting.whos_online_active_timeago * 60)
@@ -35,7 +36,10 @@ after_initialize do
     )
     hidden ||= user.id < 0
     next if hidden
-    PresenceChannel.new(CHANNEL_NAME).present(user_id: user.id, client_id: "seen")
+    PresenceChannel.new(DiscourseWhosOnline::CHANNEL_NAME).present(
+      user_id: user.id,
+      client_id: "seen",
+    )
   rescue PresenceChannel::InvalidAccess
   end
 
@@ -43,11 +47,11 @@ after_initialize do
     :site,
     :whos_online_state,
     include_condition: -> do
-      @whos_online_channel ||= PresenceChannel.new(CHANNEL_NAME)
+      @whos_online_channel ||= PresenceChannel.new(DiscourseWhosOnline::CHANNEL_NAME)
       @whos_online_channel.can_view?(user_id: scope.user&.id)
     end,
   ) do
-    @whos_online_channel ||= PresenceChannel.new(CHANNEL_NAME)
+    @whos_online_channel ||= PresenceChannel.new(DiscourseWhosOnline::CHANNEL_NAME)
     PresenceChannelStateSerializer.new(@whos_online_channel.state, root: nil)
   end
 end
