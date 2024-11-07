@@ -65,7 +65,7 @@ describe "whos online plugin", type: :request do
     expect(c.user_ids).to contain_exactly(user.id)
 
     user2 = Fabricate(:user)
-    user2.user_option.update(hide_profile_and_presence: true)
+    user2.user_option.update(hide_presence: true)
     sign_in(user2)
     get "/latest.json"
     expect(c.user_ids).to contain_exactly(user.id)

@@ -31,9 +31,7 @@ after_initialize do
 
   on(:user_seen) do |user|
     hidden = false
-    hidden ||= user.user_option.hide_profile_and_presence if defined?(
-      user.user_option.hide_profile_and_presence
-    )
+    hidden ||= user.user_option.hide_presence if defined?(user.user_option.hide_presence)
     hidden ||= user.id < 0
     next if hidden
     PresenceChannel.new(DiscourseWhosOnline::CHANNEL_NAME).present(
