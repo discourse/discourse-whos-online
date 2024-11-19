@@ -1,4 +1,4 @@
-import { inject as service } from "@ember/service";
+import { service } from "@ember/service";
 import { apiInitializer } from "discourse/lib/api";
 import discourseComputed, { observes } from "discourse-common/utils/decorators";
 
