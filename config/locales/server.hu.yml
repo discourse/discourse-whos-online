@@ -5,3 +5,15 @@
 # https://translate.discourse.org/
 
 hu:
+  site_settings:
+    whos_online_enabled: "Ki van online modul engedélyezése"
+    whos_online_active_timeago: "A legutóbbi interakció óta eltelt percek maximális száma, amikor egy felhasználó \"elérhető\"."
+    whos_online_collapse_threshold: "Az avatarok átfedéséhez szükséges felhasználók száma"
+    whos_online_maximum_display: "A megjeleníthető felhasználók maximális száma"
+    whos_online_minimum_display: "A megjelenítendő felhasználók minimális száma"
+    whos_online_hide_below_minimum_display: "Teljesen elrejti a widgetet, ha a felhasználók száma a minimális_megjelenítés alatt van"
+    whos_online_display_public: "Ki elérhető megjelenítése a nyilvánosság számára (nem szükséges bejelentkezés)"
+    whos_online_display_min_trust_level: "A ki elérhető megtekintéséhez szükséges minimális bizalmi szint"
+    whos_online_avatar_indicator: "Jelző megjelenítése a felhasználói avatarokon, amely jelzi elérhető állapotukat"
+    whos_online_avatar_indicator_topic_lists: "Elérhető indikátorok megjelenítése a témalistákban"
+    whos_online_count_only: "Csak a szám megjelenítése. Ne fedje fel az online felhasználói identitást. (hatékonyabb)"
