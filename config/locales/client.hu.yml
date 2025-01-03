@@ -5,3 +5,20 @@
 # https://translate.discourse.org/
 
 hu:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          discourse_whos_online: "Discourse Ki van online"
+  js:
+    whos_online:
+      title:
+        one: "Elérhető (%{count}):"
+        other: "Elérhető (%{count}):"
+      tooltip:
+        one: "Nemrég látott felhasználó"
+        other: "Nemrég látott %{count} felhasználó"
+      no_users: "Nincs elérhető felhasználó"
+      count_only:
+        one: "%{count} felhasználó elérhető"
+        other: "%{count} felhasználó elérhető"
