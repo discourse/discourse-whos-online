@@ -16,7 +16,7 @@ export default apiInitializer("1.39.0", (api) => {
     !(
       siteSettings.whos_online_display_public ||
       api.getCurrentUser()?.trust_level >=
-      siteSettings.whos_online_display_min_trust_level
+        siteSettings.whos_online_display_min_trust_level
     )
   ) {
     return;
@@ -33,7 +33,7 @@ export default apiInitializer("1.39.0", (api) => {
     @discourseComputed("user", "whosOnline.users.[]")
     isOnline(user) {
       return user && this.whosOnline.isUserOnline(user.id);
-    }
+    },
   });
 
   api.modifyClass("route:user", {
@@ -65,12 +65,14 @@ export default apiInitializer("1.39.0", (api) => {
     deactivate() {
       this._super();
       document.body.classList.remove("user-page-online");
-    }
+    },
   });
 
-
   if (siteSettings.whos_online_avatar_indicator_topic_lists) {
-    const addLastPosterOnlineClassNameTransformer = ({ value: additionalClasses, context: { topic } }) => {
+    const addLastPosterOnlineClassNameTransformer = ({
+      value: additionalClasses,
+      context: { topic },
+    }) => {
       const whosOnline = api.container.lookup("service:whos-online");
 
       const lastPosterId = topic.lastPoster.id;
@@ -83,8 +85,14 @@ export default apiInitializer("1.39.0", (api) => {
       return additionalClasses;
     };
 
-    api.registerValueTransformer("latest-topic-list-item-class", addLastPosterOnlineClassNameTransformer);
-    api.registerValueTransformer("topic-list-item-class", addLastPosterOnlineClassNameTransformer);
+    api.registerValueTransformer(
+      "latest-topic-list-item-class",
+      addLastPosterOnlineClassNameTransformer
+    );
+    api.registerValueTransformer(
+      "topic-list-item-class",
+      addLastPosterOnlineClassNameTransformer
+    );
   }
 
   api.modifyClass("component:scrolling-post-stream", {
@@ -109,12 +117,12 @@ export default apiInitializer("1.39.0", (api) => {
         postIds.forEach((postId) => {
           this.dirtyKeys.keyDirty(`post-${postId}`);
           this.dirtyKeys.keyDirty(`post-${postId}-avatar-${id}`, {
-            onRefresh: "updateOnline"
+            onRefresh: "updateOnline",
           });
         });
       });
       this.queueRerender();
-    }
+    },
   });
 
   api.reopenWidget("post-avatar", {
@@ -124,7 +132,7 @@ export default apiInitializer("1.39.0", (api) => {
     },
     defaultState(attrs) {
       return {
-        online: this.isUserOnline(attrs.user_id)
+        online: this.isUserOnline(attrs.user_id),
       };
     },
     updateOnline() {
@@ -135,6 +143,6 @@ export default apiInitializer("1.39.0", (api) => {
         return "user-online";
       }
       return [];
-    }
+    },
   });
 });
