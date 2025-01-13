@@ -4,7 +4,7 @@ import discourseComputed, { observes } from "discourse-common/utils/decorators";
 
 const PLUGIN_ID = "whos-online";
 
-export default apiInitializer("0.8", (api) => {
+export default apiInitializer("1.39.0", (api) => {
   const siteSettings = api.container.lookup("service:site-settings");
 
   const indicatorType = siteSettings.whos_online_avatar_indicator;
@@ -69,37 +69,30 @@ export default apiInitializer("0.8", (api) => {
   });
 
   if (siteSettings.whos_online_avatar_indicator_topic_lists) {
-    api.modifyClass("component:topic-list-item", {
-      pluginId: PLUGIN_ID,
+    const addLastPosterOnlineClassNameTransformer = ({
+      value: additionalClasses,
+      context: { topic },
+    }) => {
+      const whosOnline = api.container.lookup("service:whos-online");
 
-      whosOnline: service(),
-      classNameBindings: ["isOnline:last-poster-online"],
+      const lastPosterId = topic.lastPoster.id;
+      const lastPosterUserId = topic.lastPosterUser.id;
 
-      @discourseComputed(
-        "topic.lastPoster.id",
-        "topic.lastPosterUser.id",
-        "whosOnline.users.[]"
-      )
-      isOnline(lastPosterId, lastPosterUserId) {
-        return this.whosOnline.isUserOnline(lastPosterId || lastPosterUserId);
-      },
-    });
+      if (whosOnline.isUserOnline(lastPosterId || lastPosterUserId)) {
+        additionalClasses.push("last-poster-online");
+      }
 
-    api.modifyClass("component:latest-topic-list-item", {
-      pluginId: PLUGIN_ID,
+      return additionalClasses;
+    };
 
-      whosOnline: service(),
-      classNameBindings: ["isOnline:last-poster-online"],
-
-      @discourseComputed(
-        "topic.lastPoster.id",
-        "topic.lastPosterUser.id",
-        "whosOnline.users.[]"
-      )
-      isOnline(lastPosterId, lastPosterUserId) {
-        return this.whosOnline.isUserOnline(lastPosterId || lastPosterUserId);
-      },
-    });
+    api.registerValueTransformer(
+      "latest-topic-list-item-class",
+      addLastPosterOnlineClassNameTransformer
+    );
+    api.registerValueTransformer(
+      "topic-list-item-class",
+      addLastPosterOnlineClassNameTransformer
+    );
   }
 
   api.modifyClass("component:scrolling-post-stream", {
