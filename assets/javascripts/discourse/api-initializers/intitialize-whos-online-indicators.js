@@ -9,7 +9,7 @@ export default apiInitializer("1.39.0", (api) => {
 
   // pre-initialize the service so that it can start listening to the presence channel
   // and avoid triggering "... was previously used in the same computation" errors
-  // while subscribing1
+  // while subscribing
   api.container.lookup("service:whos-online");
 
   const indicatorType = siteSettings.whos_online_avatar_indicator;
