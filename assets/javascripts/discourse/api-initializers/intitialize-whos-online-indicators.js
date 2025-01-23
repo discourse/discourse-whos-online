@@ -1,11 +1,16 @@
 import { service } from "@ember/service";
 import { apiInitializer } from "discourse/lib/api";
-import discourseComputed, { observes } from "discourse-common/utils/decorators";
+import discourseComputed, { observes } from "discourse/lib/decorators";
 
 const PLUGIN_ID = "whos-online";
 
 export default apiInitializer("1.39.0", (api) => {
   const siteSettings = api.container.lookup("service:site-settings");
+
+  // pre-initialize the service so that it can start listening to the presence channel
+  // and avoid triggering "... was previously used in the same computation" errors
+  // while subscribing1
+  api.container.lookup("service:whos-online");
 
   const indicatorType = siteSettings.whos_online_avatar_indicator;
   if (indicatorType === "none") {
@@ -74,7 +79,6 @@ export default apiInitializer("1.39.0", (api) => {
       context: { topic },
     }) => {
       const whosOnline = api.container.lookup("service:whos-online");
-
       const lastPosterId = topic.lastPoster.id;
       const lastPosterUserId = topic.lastPosterUser.id;
 
