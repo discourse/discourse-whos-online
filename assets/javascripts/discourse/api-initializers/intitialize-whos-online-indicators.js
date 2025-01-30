@@ -78,12 +78,13 @@ export default apiInitializer("1.39.0", (api) => {
       value: additionalClasses,
       context: { topic },
     }) => {
-      const whosOnline = api.container.lookup("service:whos-online");
-      const lastPosterId = topic.lastPoster.id;
-      const lastPosterUserId = topic.lastPosterUser.id;
+      if (topic) {
+        const whosOnline = api.container.lookup("service:whos-online");
+        const { lastPoster, lastPosterUser } = topic;
 
-      if (whosOnline.isUserOnline(lastPosterId || lastPosterUserId)) {
-        additionalClasses.push("last-poster-online");
+        if (whosOnline.isUserOnline(lastPoster?.id || lastPosterUser?.id)) {
+          additionalClasses.push("last-poster-online");
+        }
       }
 
       return additionalClasses;
