@@ -1,16 +1,11 @@
-import { service } from "@ember/service";
+import bodyClass from "discourse/helpers/body-class";
 import { apiInitializer } from "discourse/lib/api";
-import discourseComputed, { observes } from "discourse/lib/decorators";
 
 const PLUGIN_ID = "whos-online";
 
-export default apiInitializer("1.39.0", (api) => {
+export default apiInitializer((api) => {
   const siteSettings = api.container.lookup("service:site-settings");
-
-  // pre-initialize the service so that it can start listening to the presence channel
-  // and avoid triggering "... was previously used in the same computation" errors
-  // while subscribing
-  api.container.lookup("service:whos-online");
+  const whosOnlineService = api.container.lookup("service:whos-online");
 
   const indicatorType = siteSettings.whos_online_avatar_indicator;
   if (indicatorType === "none") {
@@ -29,49 +24,27 @@ export default apiInitializer("1.39.0", (api) => {
 
   document.documentElement.classList.add(`whos-online-${indicatorType}`);
 
-  api.modifyClass("component:user-card-contents", {
-    pluginId: PLUGIN_ID,
+  const userOnline = (id) => whosOnlineService.isUserOnline(id);
 
-    whosOnline: service(),
-    classNameBindings: ["isOnline:user-online"],
-
-    @discourseComputed("user", "whosOnline.users.[]")
-    isOnline(user) {
-      return user && this.whosOnline.isUserOnline(user.id);
-    },
-  });
-
-  api.modifyClass("route:user", {
-    pluginId: PLUGIN_ID,
-
-    whosOnline: service(),
-
-    async afterModel(model) {
-      const superVal = await this._super(...arguments);
-      this.set("whosOnlineUserId", model.id);
-      this.updateBodyClass();
-      return superVal;
-    },
-
-    @discourseComputed("whosOnlineUserId", "whosOnline.users.[]")
-    isOnline(userId) {
-      return userId && this.whosOnline.isUserOnline(userId);
-    },
-
-    @observes("isOnline")
-    updateBodyClass() {
-      if (this.isOnline) {
-        document.body.classList.add("user-page-online");
-      } else {
-        document.body.classList.remove("user-page-online");
+  api.modifyClass(
+    "component:user-card-contents",
+    (Superclass) =>
+      class extends Superclass {
+        get classNames() {
+          const extraClasses = [];
+          if (this.user && userOnline(this.user.id)) {
+            extraClasses.push("user-online");
+          }
+          return [...super.classNames, ...extraClasses];
+        }
       }
-    },
+  );
 
-    deactivate() {
-      this._super();
-      document.body.classList.remove("user-page-online");
-    },
-  });
+  api.renderInOutlet("above-user-profile", <template>
+    {{#if (userOnline @outletArgs.model.id)}}
+      {{bodyClass "user-page-online"}}
+    {{/if}}
+  </template>);
 
   if (siteSettings.whos_online_avatar_indicator_topic_lists) {
     const addLastPosterOnlineClassNameTransformer = ({
