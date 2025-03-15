@@ -6,6 +6,7 @@ import Site from "discourse/models/site";
 export default class WhosOnlineService extends Service {
   @service presence;
   @service appEvents;
+
   @readOnly("channel.users") users;
   @readOnly("channel.count") count;
   @readOnly("channel.countOnly") countOnly;
