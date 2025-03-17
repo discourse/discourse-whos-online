@@ -4,9 +4,13 @@
   padding-bottom: 5px;
 
   a {
-    transition: margin-right 1s, margin-left 1s, opacity 0.5s;
+    transition:
+      margin-right 1s,
+      margin-left 1s,
+      opacity 0.5s;
     transition-delay: 1s;
     opacity: 1;
+
     &.is-hidden {
       opacity: 0;
     }
@@ -15,19 +19,19 @@
   &.collapsed {
     a {
       margin-right: -15px;
-      margin-left: 0px;
+      margin-left: 0;
     }
 
     &:hover a {
-      margin-left: 0px;
-
-      margin-right: 0px;
+      margin-left: 0;
+      margin-right: 0;
 
       &:first-of-type {
-        margin-left: 0px;
+        margin-left: 0;
       }
+
       &:last-of-type {
-        margin-right: 0px;
+        margin-right: 0;
       }
     }
   }
@@ -67,32 +71,46 @@ html.whos-online-glow {
 
 html.whos-online-ring {
   #user-card.user-online .user-card-avatar img.avatar {
-    box-shadow: 0 0 0 2px var(--secondary), 0 0 0 5px var(--success-medium);
+    box-shadow:
+      0 0 0 2px var(--secondary),
+      0 0 0 5px var(--success-medium);
   }
 
   .topic-avatar.user-online img.avatar {
-    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
+    box-shadow:
+      0 0 0 1px var(--secondary),
+      0 0 0 3px var(--success-medium);
   }
 
   .topic-map .avatars .user-online img.avatar {
-    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 2px var(--success-medium);
+    box-shadow:
+      0 0 0 1px var(--secondary),
+      0 0 0 2px var(--success-medium);
   }
 
   &.mobile-view .topic-list-item.last-poster-online img.avatar {
-    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
+    box-shadow:
+      0 0 0 1px var(--secondary),
+      0 0 0 3px var(--success-medium);
   }
 
   .latest-topic-list .latest-topic-list-item.last-poster-online img.avatar {
-    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
+    box-shadow:
+      0 0 0 1px var(--secondary),
+      0 0 0 3px var(--success-medium);
   }
 
   body.user-page-online .primary img.avatar {
-    box-shadow: 0 0 0 2px var(--secondary), 0 0 0 5px var(--success-medium);
+    box-shadow:
+      0 0 0 2px var(--secondary),
+      0 0 0 5px var(--success-medium);
     margin: 8px;
   }
 
   body.user-page-online .collapsed-info .primary img.avatar {
-    box-shadow: 0 0 0 1px var(--secondary), 0 0 0 3px var(--success-medium);
+    box-shadow:
+      0 0 0 1px var(--secondary),
+      0 0 0 3px var(--success-medium);
     margin: 5px;
   }
 }
@@ -135,6 +153,7 @@ html.whos-online-flair {
     // Add some spacing to the avatars
     margin-left: 5px;
   }
+
   .topic-map .avatars .user-online::before {
     @extend .whos-online-flair-prototype;
     top: -1px;
@@ -146,6 +165,7 @@ html.whos-online-flair {
   &.mobile-view .topic-list-item.last-poster-online div.pull-left {
     position: relative;
   }
+
   &.mobile-view .topic-list-item.last-poster-online div.pull-left::before {
     @extend .whos-online-flair-prototype;
     top: -1px;
@@ -157,6 +177,7 @@ html.whos-online-flair {
   .latest-topic-list .latest-topic-list-item.last-poster-online .topic-poster {
     position: relative;
   }
+
   .latest-topic-list
     .latest-topic-list-item.last-poster-online
     .topic-poster::before {

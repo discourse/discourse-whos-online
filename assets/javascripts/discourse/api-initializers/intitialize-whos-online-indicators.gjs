@@ -40,11 +40,14 @@ export default apiInitializer((api) => {
       }
   );
 
-  api.renderInOutlet("above-user-profile", <template>
-    {{#if (userOnline @outletArgs.model.id)}}
-      {{bodyClass "user-page-online"}}
-    {{/if}}
-  </template>);
+  api.renderInOutlet(
+    "above-user-profile",
+    <template>
+      {{#if (userOnline @outletArgs.model.id)}}
+        {{bodyClass "user-page-online"}}
+      {{/if}}
+    </template>
+  );
 
   if (siteSettings.whos_online_avatar_indicator_topic_lists) {
     const addLastPosterOnlineClassNameTransformer = ({
