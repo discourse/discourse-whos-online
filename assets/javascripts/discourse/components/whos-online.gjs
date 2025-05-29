@@ -3,7 +3,7 @@ import { computed } from "@ember/object";
 import { readOnly } from "@ember/object/computed";
 import { service } from "@ember/service";
 import { i18n } from "discourse-i18n";
-import whosOnlineAvatar from "./whos-online-avatar";
+import WhosOnlineAvatar from "./whos-online-avatar";
 
 export default class WhosOnline extends Component {
   @service whosOnline;
@@ -64,7 +64,7 @@ export default class WhosOnline extends Component {
         </span>
         {{#if this.hasUsers}}
           {{#each this.users as |user|}}
-            {{whosOnlineAvatar user=user}}
+            <WhosOnlineAvatar @user={{user}} />
           {{/each}}
         {{/if}}
       </div>
