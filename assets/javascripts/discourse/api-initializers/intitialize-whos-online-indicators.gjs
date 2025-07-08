@@ -1,5 +1,6 @@
 import bodyClass from "discourse/helpers/body-class";
 import { apiInitializer } from "discourse/lib/api";
+import { withSilencedDeprecations } from "discourse/lib/deprecated";
 
 const PLUGIN_ID = "whos-online";
 
@@ -76,6 +77,29 @@ export default apiInitializer((api) => {
     );
   }
 
+  customizePost(api);
+});
+
+function customizePost(api) {
+  api.registerValueTransformer(
+    "post-avatar-class",
+    ({ value, context: { post } }) => {
+      const whosOnline = api.container.lookup("service:whos-online");
+
+      if (whosOnline.isUserOnline(post.user_id)) {
+        value.push("user-online");
+      }
+
+      return value;
+    }
+  );
+
+  withSilencedDeprecations("discourse.post-stream-widget-overrides", () =>
+    customizeWidgetPost(api)
+  );
+}
+
+function customizeWidgetPost(api) {
   api.modifyClass("component:scrolling-post-stream", {
     pluginId: PLUGIN_ID,
 
@@ -126,4 +150,4 @@ export default apiInitializer((api) => {
       return [];
     },
   });
-});
+}
