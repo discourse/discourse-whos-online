@@ -52,6 +52,6 @@ export default class WhosOnlineService extends Service {
   }
 
   isUserOnline(id) {
-    return !!this.channel?.users?.findBy("id", id);
+    return !!this.channel?.users?.find((user) => user.id === id);
   }
 }
