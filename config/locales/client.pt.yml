@@ -5,3 +5,20 @@
 # https://translate.discourse.org/
 
 pt:
+  admin_js:
+    admin:
+      site_settings:
+        categories:
+          discourse_whos_online: "Discourse Who's Online"
+  js:
+    whos_online:
+      title:
+        one: "On-line (%{count}):"
+        other: "On-line (%{count}):"
+      tooltip:
+        one: "Utilizadores vistos no último minuto"
+        other: "Utilizadores vistos nos últimos %{count} minutos"
+      no_users: "Atualmente, nenhum utilizador on-line"
+      count_only:
+        one: "%{count} utilizador on-line"
+        other: "%{count} utilizadores on-line"
