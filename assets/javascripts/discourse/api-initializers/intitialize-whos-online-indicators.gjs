@@ -1,6 +1,5 @@
 import bodyClass from "discourse/helpers/body-class";
 import { apiInitializer } from "discourse/lib/api";
-import { withSilencedDeprecations } from "discourse/lib/deprecated";
 
 const PLUGIN_ID = "whos-online";
 
@@ -93,61 +92,4 @@ function customizePost(api) {
       return value;
     }
   );
-
-  withSilencedDeprecations("discourse.post-stream-widget-overrides", () =>
-    customizeWidgetPost(api)
-  );
-}
-
-function customizeWidgetPost(api) {
-  api.modifyClass("component:scrolling-post-stream", {
-    pluginId: PLUGIN_ID,
-
-    didInsertElement() {
-      this._super();
-      this.appEvents.on("whosonline:changed", this, this._whosOnlineCallback);
-    },
-
-    willDestroyElement() {
-      this.appEvents.off("whosonline:changed", this, this._whosOnlineCallback);
-    },
-
-    _whosOnlineCallback(changedUserIds) {
-      changedUserIds.forEach((id) => {
-        let postIds = this.attrs.posts.value
-          .filter(({ user_id }) => {
-            return user_id === id;
-          })
-          .map((post) => post.id);
-        postIds.forEach((postId) => {
-          this.dirtyKeys.keyDirty(`post-${postId}`);
-          this.dirtyKeys.keyDirty(`post-${postId}-avatar-${id}`, {
-            onRefresh: "updateOnline",
-          });
-        });
-      });
-      this.queueRerender();
-    },
-  });
-
-  api.reopenWidget("post-avatar", {
-    buildKey: (attrs) => `post-${attrs.id}-avatar-${attrs.user_id}`,
-    isUserOnline(userId) {
-      return this.register.lookup("service:whos-online").isUserOnline(userId);
-    },
-    defaultState(attrs) {
-      return {
-        online: this.isUserOnline(attrs.user_id),
-      };
-    },
-    updateOnline() {
-      this.state.online = this.isUserOnline(this.attrs.user_id);
-    },
-    buildClasses(attrs, state) {
-      if (state.online) {
-        return "user-online";
-      }
-      return [];
-    },
-  });
 }
