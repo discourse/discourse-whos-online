@@ -1,8 +1,6 @@
 import bodyClass from "discourse/helpers/body-class";
 import { apiInitializer } from "discourse/lib/api";
 
-const PLUGIN_ID = "whos-online";
-
 export default apiInitializer((api) => {
   const siteSettings = api.container.lookup("service:site-settings");
   const whosOnlineService = api.container.lookup("service:whos-online");
