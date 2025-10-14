@@ -1,6 +1,4 @@
 import Component from "@ember/component";
-import { computed } from "@ember/object";
-import { readOnly } from "@ember/object/computed";
 import { service } from "@ember/service";
 import { i18n } from "discourse-i18n";
 import WhosOnlineAvatar from "./whos-online-avatar";
@@ -8,9 +6,6 @@ import WhosOnlineAvatar from "./whos-online-avatar";
 export default class WhosOnline extends Component {
   @service whosOnline;
 
-  @readOnly("whosOnline.count") count;
-
-  @computed("whosOnline.users.[]")
   get users() {
     return this.whosOnline.users?.slice(
       0,
@@ -18,22 +13,22 @@ export default class WhosOnline extends Component {
     );
   }
 
-  @computed("users", "users.length")
   get hasUsers() {
     return this.users?.length >= this.siteSettings.whos_online_minimum_display;
   }
 
-  @computed("count")
+  get count() {
+    return this.whosOnline.count;
+  }
+
   get hasCount() {
     return this.count >= this.siteSettings.whos_online_minimum_display;
   }
 
-  @computed("count")
   get isLong() {
     return this.count >= this.siteSettings.whos_online_collapse_threshold;
   }
 
-  @computed("count")
   get shouldDisplay() {
     if (
       this.count < this.siteSettings.whos_online_minimum_display &&
