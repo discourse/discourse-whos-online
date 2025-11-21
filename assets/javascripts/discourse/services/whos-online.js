@@ -1,5 +1,3 @@
-import { computed } from "@ember/object";
-import { readOnly } from "@ember/object/computed";
 import Service, { service } from "@ember/service";
 import Site from "discourse/models/site";
 
@@ -7,22 +5,34 @@ export default class WhosOnlineService extends Service {
   @service presence;
   @service appEvents;
 
-  @readOnly("channel.users") users;
-  @readOnly("channel.count") count;
-  @readOnly("channel.countOnly") countOnly;
+  #channel;
 
   init() {
     super.init(...arguments);
 
-    this.set("channel", this.presence.getChannel("/whos-online/online"));
+    this.#channel = this.presence.getChannel("/whos-online/online");
 
     if (this.enabled) {
-      this.channel.subscribe(Site.currentProp("whos_online_state"));
+      this.#channel.subscribe(Site.currentProp("whos_online_state"));
     }
 
+    // TODO (glimmer-post-stream): remove this observer when removing the legacy widget code
     this.addObserver("users.[]", this, this._usersChanged);
   }
 
+  get users() {
+    return this.#channel?.users;
+  }
+
+  get count() {
+    return this.#channel?.count || 0;
+  }
+
+  get countOnly() {
+    return this.#channel?.countOnly || 0;
+  }
+
+  // TODO (glimmer-post-stream): remove this function when removing the legacy widget code
   _usersChanged() {
     const currentUserIds = new Set(this.users?.map((u) => u.id) || []);
     const prevUserIds = this._prevUserIds || new Set([]);
@@ -36,7 +46,6 @@ export default class WhosOnlineService extends Service {
     }
   }
 
-  @computed
   get enabled() {
     const anonAndLoginRequired =
       !this.currentUser && this.siteSettings.login_required;
@@ -52,6 +61,6 @@ export default class WhosOnlineService extends Service {
   }
 
   isUserOnline(id) {
-    return !!this.channel?.users?.findBy("id", id);
+    return !!this.#channel?.users?.find((user) => user.id === id);
   }
 }

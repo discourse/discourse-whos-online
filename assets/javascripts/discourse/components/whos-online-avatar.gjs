@@ -1,16 +1,14 @@
-import Component from "@ember/component";
 import avatar from "discourse/helpers/avatar";
 
-export default class WhosOnlineAvatar extends Component {
-  tagName = "a";
-  attributeBindings = ["user.username:data-user-card", "user.path:href"];
-
-  <template>
+const WhosOnlineAvatar = <template>
+  <a data-user-card={{@user.username}} href={{@user.path}}>
     {{avatar
-      this.user
+      @user
       avatarTemplatePath="avatar_template"
-      title=this.user.username
+      title=@user.username
       imageSize="small"
     }}
-  </template>
-}
+  </a>
+</template>;
+
+export default WhosOnlineAvatar;
