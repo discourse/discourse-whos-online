@@ -15,9 +15,6 @@ export default class WhosOnlineService extends Service {
     if (this.enabled) {
       this.#channel.subscribe(Site.currentProp("whos_online_state"));
     }
-
-    // TODO (glimmer-post-stream): remove this observer when removing the legacy widget code
-    this.addObserver("users.[]", this, this._usersChanged);
   }
 
   get users() {
@@ -30,20 +27,6 @@ export default class WhosOnlineService extends Service {
 
   get countOnly() {
     return this.#channel?.countOnly || 0;
-  }
-
-  // TODO (glimmer-post-stream): remove this function when removing the legacy widget code
-  _usersChanged() {
-    const currentUserIds = new Set(this.users?.map((u) => u.id) || []);
-    const prevUserIds = this._prevUserIds || new Set([]);
-
-    const enteredUsers = [...currentUserIds].filter((x) => !prevUserIds.has(x));
-    const leftUsers = [...prevUserIds].filter((x) => !currentUserIds.has(x));
-    const changedUsers = [...enteredUsers, ...leftUsers];
-
-    if (changedUsers.length > 0) {
-      this.appEvents.trigger("whosonline:changed", changedUsers);
-    }
   }
 
   get enabled() {
