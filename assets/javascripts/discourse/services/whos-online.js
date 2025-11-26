@@ -3,7 +3,6 @@ import Site from "discourse/models/site";
 
 export default class WhosOnlineService extends Service {
   @service presence;
-  @service appEvents;
 
   #channel;
 
