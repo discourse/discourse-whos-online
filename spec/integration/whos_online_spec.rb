@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails_helper"
-
 describe "whos online plugin", type: :request do
   before do
     SiteSetting.whos_online_enabled = true
