@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/require-tagless-components */
 import Component from "@ember/component";
 import { service } from "@ember/service";
 import { i18n } from "discourse-i18n";

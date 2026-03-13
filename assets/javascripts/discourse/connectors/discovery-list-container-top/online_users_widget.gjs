@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/require-tagless-components */
 import Component from "@ember/component";
 import { classNames, tagName } from "@ember-decorators/component";
 import WhosOnline from "../../components/whos-online";
